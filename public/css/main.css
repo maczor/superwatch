@@ -1,0 +1,1543 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500,900|Roboto+Condensed:300,400,700);
+
+body {
+	/*background: grey;*/
+	color: white;
+}
+a {
+	color: #226494;
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+.glyphicon-refresh {
+	-webkit-animation-name: spin;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 1s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    height: 22px;
+    left: 4px;
+}
+.pager li {
+	margin: 0 4px;
+}
+.pager li>a, .pager li>span {
+	width: 100px;
+}
+#lightboxModal .prevclose {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 40px;
+	height: 40px;
+	background: #226494 url('/img/remove-w.png') 50% no-repeat;
+	background-size: 24px 24px;
+	cursor: pointer;
+}
+#lightboxModal .prevclose:hover {
+	opacity: 0.4;
+	filter:alpha(opacity=40);
+}
+#lightboxModal .modal-dialog {
+	width: 900px;
+	padding: 0;
+	-webkit-perspective: 900px;
+	-webkit-perspective-origin: 50% 240px;
+	-moz-perspective: 900px;
+	-moz-perspective-origin: 50% 240px;
+	-ms-perspective: 900px;
+	-ms-perspective-origin: 50% 240px;
+	perspective: 900px;
+	perspective-origin: 50% 240px;
+	margin-top: 3%;
+}
+#lightboxModal .preview {
+	left: 210px;
+	z-index: 100;
+	box-shadow: 0px 0px 80px black;
+	width: 480px;
+	height: 480px;
+	position: absolute;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+	z-index: 300;
+}
+#lightboxModal .preview.right {
+	left: 420px;
+	-webkit-transform: rotateY(-40deg) translateZ(-200px) translateX(-100px);
+	-moz-transform: rotateY(-40deg) translateZ(-200px) translateX(-100px);
+	-ms-transform: rotateY(-40deg) translateZ(-200px) translateX(-100px);
+	z-index: 200;
+	cursor: pointer;
+}
+#lightboxModal .preview.left {
+	left: 0;
+	-webkit-transform: rotateY(40deg) translateZ(-200px) translateX(100px);
+	-moz-transform: rotateY(40deg) translateZ(-200px) translateX(100px);
+	-ms-transform: rotateY(40deg) translateZ(-200px) translateX(100px);
+	z-index: 100;
+	cursor: pointer;
+}
+#lightboxModal .preview.right:hover {
+	-webkit-transform: rotateY(-40deg) translateZ(-200px) translateX(-50px);
+	-moz-transform: rotateY(-40deg) translateZ(-200px) translateX(-50px);
+	-ms-transform: rotateY(-40deg) translateZ(-200px) translateX(-50px);
+}
+#lightboxModal .preview.left:hover {
+	-webkit-transform: rotateY(40deg) translateZ(-200px) translateX(50px);
+	-moz-transform: rotateY(40deg) translateZ(-200px) translateX(50px);
+	-ms-transform: rotateY(40deg) translateZ(-200px) translateX(50px);
+}
+#result {
+	position: absolute;
+	z-index: 999;
+	border: solid 1px white;
+	background: url('/img/bgtrans.png');
+}
+#result ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+#result ul li {
+	padding: 4px 8px;
+	border-bottom: 1px solid silver;
+	cursor: pointer;
+}
+#result ul li:hover {
+	background: #226494;
+}
+#result ul li:last-child {
+	border-bottom: none;
+}
+.input-group-addon.input-sm {
+	cursor: pointer;
+}
+.show .newsletter .input-group-addon.input-sm {
+	height: 29px;
+}
+/* modal contact */
+.modal-dialog {
+	margin-top: 10%;
+	color: black;
+}
+.modal-dialog .contact-top {
+	width: 100%;
+	overflow: hidden;
+}
+.modal-dialog .contact-top .cleft, .modal-dialog .contact-top .cright {
+	width:280px;
+    height: 16px;
+    float:left;
+    background: white;
+    border-top: 16px solid white;
+}
+.modal-dialog .contact-top .cmid {
+	width: 20px;
+    height: 0px;
+    float: left;
+    border-style: solid;
+    border-width: 16px 10px 0px 10px;
+    border-color: transparent white transparent white;
+}
+.modal-dialog .contact-main {
+	width: 100%;
+	min-height: 300px;
+	background: white;
+	border-right: solid 1px white;
+}
+.modal-dialog .contact-main .hrsm {
+	width: 40px;
+	height: 1px;
+	background: black;
+	margin: auto;
+}
+.modal-dialog .contact-main .wrapper {
+	margin: 0 30px;
+	padding: 10px;
+	text-align: center;
+}
+.modal-dialog .contact-main .wrapper #contact-watch {
+	margin-top: 10px;
+	text-align: left;
+}
+.modal-dialog .contact-main .wrapper #contact-watch textarea {
+	height: 172px;
+}
+.modal-dialog .contact-main .wrapper #contact-watch .center {
+	text-align: center;
+}
+.modal-dialog .contact-main .wrapper #contact-watch button {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+.container {
+	/*height: 79px;*/
+	width: 940px;
+	min-width: 940px;
+	/*border: solid 1px silver;*/
+}
+h3.white, h3.black {
+	font-weight: 400;
+	text-align: center;
+	text-transform: uppercase;
+	margin: 50px 0 0 0;
+	padding: 0;
+}
+h3.white {
+	text-shadow: 0 0 1px #000;
+}
+h3.black {
+	color: black;
+	margin-bottom: 30px;
+}
+button.btn-black {
+	color: white;
+	background-color: black;
+	border: black;
+}
+button.btn-black:hover {
+	color: #2099cd;
+}
+button.btn-transp {
+	color: black;
+	background: none;
+	border: none;
+}
+button.btn-transp-w {
+	color: white;
+	background: none;
+	border: solid 1px white;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+button.btn-transp-w:hover {
+	color: white;
+}
+button.btn-transp-w .caret {
+	border-top: solid 4px white;
+}
+button.btn-transp:hover {
+	color: #2099cd;
+}
+.wsicon {
+	position: relative;
+	display: inline-block;
+}
+.wsicon-eclair-w {
+	top: 3px;
+	width: 8px;
+	height: 12px;
+	background: url('../img/eclair-w.png') 50% no-repeat;
+}
+.wsicon-plus-b {
+	width: 10px;
+	height: 10px;
+	background: url('../img/icon-plus-b.png') 50% no-repeat;
+}
+.wsicon-plus {
+	left: -4px;
+	width: 10px;
+	height: 10px;
+	background: url('../img/icon-plus.png') 50% no-repeat;
+}
+.wsicon-search {
+	top: 1px;
+	left: 8px;
+	width: 12px;
+	height: 12px;
+	background: url('../img/icon-search.png') 50% no-repeat;
+}
+
+ul.mitems {
+	font-weight: 300;
+	font-size: 1em;
+	text-transform: uppercase;
+	position: relative;
+	top: 30px;
+	width: 100%;
+}
+ul.mitems li {
+	list-style: none;
+	float: left;
+	margin-right: 17px;
+}
+body.fr ul.mitems li {
+	margin-right: 14px;
+}
+body.fr ul.mitems li.wishlist a {
+	width: 110px;
+}
+ul.mitems li a {
+	color: white;
+	text-decoration: none;
+	padding: 2px;
+}
+ul.mitems li.search input {
+	height: 25px;
+	position: relative;
+	top: -2px;
+	width: 134px;
+	font-weight: 300;
+	color: white;
+	text-transform: none;
+	border: solid 1px white;
+	background: none;
+	padding-left: 6px;
+	padding-right: 14px;
+	background: url('../img/icon-search.png') 116px 50% no-repeat;
+}
+body.fr ul.mitems li.search input {
+	width: 144px;
+	background-position: 126px 50%;
+}
+ul.mitems li.search input::-webkit-input-placeholder, input.search::-webkit-input-placeholder { /* WebKit browsers */
+    color: white;
+}
+ul.mitems li.search input:-moz-placeholder, input.search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: white;
+}
+ul.mitems li.search input::-moz-placeholder, input.search::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: white;
+}
+ul.mitems li.search input:-ms-input-placeholder, input.search:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: white;
+}
+ul.mitems li.wishlist a {
+	text-transform: none;
+	background: #0e5074;
+	border: solid 1px #0e5074;
+	display: inline-block;
+	width: 125px;
+	top: -2px;
+	position: relative;
+	text-align: center;
+}
+/* langs */
+.laravel_language_chooser {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: 0.8em;
+	font-weight: 400;
+}
+.laravel_language_chooser a {
+	color: #2099cd;
+}
+.laravel_language_chooser a:hover {
+	text-decoration: none;
+}
+.laravel_language_chooser li {
+	display: inline-block;
+	width: 25px;
+	text-align: center;
+	padding-top: 10px;
+	margin-right: 4px;
+}
+.laravel_language_chooser li.active {
+	background: url('../img/markerlang.png') 50% 0px no-repeat;
+}
+
+/* menu 1 */
+#menu1 .divider {
+	position: absolute;
+	top: 99px;
+	display: block;
+	width: 100%;
+	height: 1px;
+	background: url('../img/divider.png') 50%;
+	min-width: 940px;
+}
+#menu1 div.logo img {
+	display: block;
+	margin: 16px auto;
+}
+#menu1 div.share {
+	text-align: right;
+}
+#menu1 div.share img {
+	margin-top: 37px;
+	margin-right: 10px;
+}
+#menu1 ul.mitems {
+	float: left;
+	top: -14px;
+	margin: 0;
+	padding: 0;
+}
+#menu1 ul.mitems li {
+	text-shadow: 1px 1px 2px #000;
+	margin-right: 35px;
+}
+body.fr #menu1 ul.mitems li {
+	margin-right: 31px;
+}
+#menu1 ul.mitems li.search, #menu1 ul.mitems li.wishlist {
+	text-shadow: none;
+}
+#menu1 ul.mitems li.wishlist {
+	margin-right: 0 !important;
+}
+#menu1 .marker {
+	position: absolute;
+	left: 120px;
+	top: 160px;
+	width: 80px;
+	height: 12px;
+	background: url('../img/marker.png') no-repeat;
+}
+/* menu2 */
+#menu2 {
+	width: 100%;
+	height: 79px;
+	background-image: url('../img/menu2-bg.png');
+	background-size: cover;
+	border-bottom: solid 1px white;
+	position: fixed;
+	top: 0;
+	overflow: hidden;
+	z-index: 999;
+	visibility: hidden;
+}
+#menu2 .logo {
+	width: 64px;
+	height: 54px;
+	float: left;
+	margin: 14px;
+	margin-right: 30px;
+	background: url('../img/sw-logo-m.png') 50% no-repeat;
+	text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+#menu2 .marker {
+	position: absolute;
+	left: 120px;
+	top: 70px;
+	width: 76px;
+	height: 9px;
+	background: url('../img/marker-b.png') no-repeat;
+}
+.missing section#watches #menu2 {
+	visibility: visible;
+	background: url('../img/galaxy.png') 50% 0 no-repeat;
+}
+.missing section#watches {
+	min-height: 450px;
+	background: url('../img/galaxy.png') 50% 0 no-repeat;
+	background-size: cover;
+}
+.missing section#watches .main {
+	text-align: center;
+	padding-top: 120px;
+}
+.missing section#watches .main h3 {
+	text-shadow: 0px 0px 4px #000;
+}
+.missing section#watches .main button {
+	min-width: 240px;
+}
+.show section#watches #menu2 {
+	visibility: visible;
+}
+.show section#watches {
+	width: 100%;
+	min-height: 650px;
+	background: url('../img/sky2.png') 50% 0 no-repeat;
+	background-size: cover;
+}
+.show section#watches .main_info {
+	margin-top: 100px;
+}
+.show section#watches .main_info .left {
+	width: 11px;
+	height: 60px;
+	float: left;
+	background: url('/img/arr-l.png') 50% no-repeat;
+	background-size: 11px 38px;
+}
+.show section#watches .main_info .brandname {
+	width: 280px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 4px;
+}
+.show section#watches .main_info .brand {
+	font-size: 1.3em;
+	font-weight: 500;
+}
+.show section#watches .main_info .name {
+	font-weight: 300;
+	font-size: 1.3em;
+	margin-top: -2px;
+}
+.show section#watches .main_info .logo {
+	width: 358px;
+	float: left;
+	text-align: center;
+}
+.show section#watches .main_info .pricewish {
+	width: 280px;
+	float: left;
+	text-align: right;
+	padding-right: 20px;
+	padding-top: 6px;
+}
+.show section#watches .main_info .price {
+	font-size: 1.3em;
+	font-weight: 500;
+}
+.show section#watches .main_info .addtowishlist {
+	font-weight: 300;
+	font-size: 0.8em;
+	cursor: pointer;
+}
+.show section#watches .main_info .right {
+	width: 11px;
+	height: 60px;
+	float: left;
+	background: url('/img/arr-r.png') 50% no-repeat;
+	background-size: 11px 38px;
+}
+.show section#watches .more_info {
+	position: absolute;
+	bottom: 16px;
+	width: 424px;
+}
+.show section#watches .more_info .brandmodel {
+	float: left;
+	font-size: 1.4em;
+	line-height: 1.1em;
+	margin-bottom: 8px;
+	text-transform: uppercase;
+}
+.show section#watches .more_info .brandmodel .brand {
+	font-weight: 700;
+}
+.show section#watches .more_info .price {
+	float: right;
+	position: relative;
+	top: 1.1em;
+	font-size: 1.4em;
+	line-height: 1.1em;
+}
+.show section#watches .more_info .contactbtns {
+	clear: both;
+}
+.show section#watches .watch {
+	padding: 0 10px;
+	margin-bottom: 60px;
+}
+.show section#watches .showprev {
+	cursor: pointer;
+	position: relative;
+}
+.show section#watches .watch .first {
+	width: 456px;
+	float: left;
+	margin-right: 8px;
+}
+.show section#watches .watch .second {
+	width: 224px;
+	height: 224px;
+	float: left;
+	margin-right: 8px;
+}
+.show section#watches .watch .third {
+	width: 224px;
+	height: 224px;
+	float: left;
+	background: white;
+	color: black;
+	padding: 16px;
+	line-height: 1.7em;
+}
+.show section#watches .watch .third strong {
+	color: #226494;
+}
+.show section#watches .watch .fourth {
+	position: relative;
+	width: 456px;
+	height: 224px;
+	float: left;
+	margin-top: 8px;
+	background: white;
+	color: black;
+	padding: 16px;
+}
+.show section#watches .watch .fifth, .show section#watches .watch .sixth {
+	width: 224px;
+	height: 224px;
+	float: left;
+	margin-top: 8px;
+	margin-right: 8px;
+}
+.show section#watches .watch .spacer {
+	width: 456px;
+	float: left;
+	margin-right: 8px;
+	margin-top: 8px;
+}
+.show section#watches .watch .seventh {
+	width: 456px;
+	float: left;
+	margin-top: 8px;
+	position: relative;
+	top: -232px;
+}
+.show section#watches .watch .eight {
+	width: 456px;
+	float: left;
+	margin-right: 8px;
+	margin-top: 8px;
+}
+.btncontact {
+	float: left;
+	color: white;
+	font-size: 0.9em;
+	margin-right: 2px;
+	cursor: pointer;
+}
+.btncontact .contact-top {
+	width: 100%;
+	overflow: hidden;
+}
+.btncontact .contact-top .cleft, .btncontact .contact-top .cright {
+	width:100px;
+    height: 6px;
+    float:left;
+    background: #226494;
+    border-top: 7px solid #226494;
+}
+.btncontact .contact-top .cmid {
+	width: 12px;
+    height: 0px;
+    float: left;
+    border-style: solid;
+    border-width: 7px 6px 0px 6px;
+    border-color: transparent #226494 transparent #226494;
+}
+.btncontact .contact-main {
+	background: #226494;
+	padding: 10px 0 16px 0;
+	width: 212px;
+	text-align: center;
+	height: 40px;
+}
+.btncontact .wsicon {
+	margin-right: 4px;
+}
+.contactbtns .btn {
+	background: black;
+	border-radius: 0;
+	width: 46px;
+	height: 46px;
+	margin-left: 4px;
+}
+.contactbtns .btn.addtowishlist {
+	background: black url('../img/icon-plus.png') 50% no-repeat;
+}
+.contactbtns .btn.facebook {
+	background: black url('../img/facebook-w.png') 50% no-repeat;
+}
+.contactbtns .btn.pinterest {
+	background: black url('../img/pinterest-w.png') 50% no-repeat;
+}
+.contactbtns .btn.email {
+	background: black url('../img/email-w.png') 50% no-repeat;
+}
+/* wishlist */
+.wishlist section#watches #menu2 {
+	visibility: visible;
+}
+.wishlist .th {
+	display: inline-block;
+	margin: 0;
+	margin-bottom: 10px;
+}
+.wishlist .th.watches {
+	width: 634px;
+}
+.wishlist .th.price {
+	width: 120px;
+	text-align: center;
+}
+.wishlist .th.remove {
+	width: 85px;
+	text-align: center;
+}
+.wishlist section#contact .newsletter {
+	margin-bottom: 180px;
+}
+.wishlist section#contact .frame {
+	background: url('../img/frame.png') 50% -120px no-repeat;
+}
+.wlwrapper {
+	width: 90%;
+	margin: auto;
+}
+.wlsingle {
+	position: relative;
+	background: white;
+	clear: both;
+	height: 206px;
+	background: white url('/img/divider-b-l.png') 50% 100% no-repeat;
+}
+.wlimg {
+	display: inline-block;
+	float: left;
+	width: 176px;
+	height: 176px;
+	margin-right: 18px;
+	position: relative;
+	top: 25px;
+}
+.wlmain {
+	display: inline-block;
+	position: relative;
+	width: 440px;
+	height: 100%;
+	color: black;
+}
+.wlmain .brandmodel {
+	margin-top: 18px;
+	text-transform: uppercase;
+	font-size: 1.4em;
+	font-weight: 300;
+}
+.wlmain .brandmodel strong {
+	font-weight: 500;
+}
+.wlmain .desc {
+	font-size: 0.9em;
+}
+.wlmain .logo {
+	position: absolute;
+	bottom: 60px;
+	left: 4px;
+}
+.wlprice {
+	display: inline-block;
+	color: black;
+	width: 120px;
+	text-align: center;
+	font-size: 1.4em;
+	position: absolute;
+	top: 80px;
+	left: 634px;
+}
+.wlremove {
+	display: inline-block;
+	color: black;
+	width: 80px;
+	text-align: center;
+	position: absolute;
+	top: 70px;
+	left: 764px;
+}
+.wlremove a span {
+	font-size: 140%;
+}
+.wishlist .contactbtns {
+	position: absolute;
+	bottom: 4px;
+}
+.wlcontact {
+	text-align: center;
+	padding-top: 12px;
+	margin-bottom: 20px;
+}
+.wlcontact .btncontact {
+	float: left;
+	color: white;
+	font-size: 1.4em;
+	margin-right: 2px;
+	cursor: pointer;
+}
+.wlcontact .btncontact .contact-top .cleft, .wlcontact .btncontact .contact-top .cright {
+	width: 411px;
+    height: 10px;
+    border-top: 12px solid #226494;
+}
+.wlcontact .btncontact .contact-top .cmid {
+	width: 21px;
+    border-width: 12px 12px 0px 12px;
+}
+.wlcontact .btncontact .contact-main {
+	width: 846px;
+	padding-top: 4px;
+	font-weight: 300;
+}
+.wlcontact .wlcontactform {
+	background: #dbeff7 url('/img/divider-b-l.png') 50% 0px no-repeat;
+	width: 100%;
+	margin-top: 52px;
+	padding: 12px 0;
+}
+.wlcontact .wlcontactform .info {
+	text-align: left;
+	padding: 28px;
+	padding-top: 32px;
+	color: black;
+	font-size: 0.9em;
+	font-weight: 500;
+	height: 220px;
+}
+.wlcontact .wlcontactform .info .send {
+	width: 180px;
+	text-align: left;
+	position: absolute;
+	bottom: 12px;
+	background: #226494 url('/img/arr-r-sm.png') 90% 50% no-repeat;
+}
+.wlcontact .wlcontactform form {
+	text-align: left;
+	color: #226494;
+	padding-top: 12px;
+	padding-right: 12px;
+}
+.wlcontact .wlcontactform form textarea {
+	height: 172px;
+	background-color: #dbeff7;
+}
+.wlcontact .wlcontactform form textarea:focus {
+	background-color: white;
+}
+.wlcontact .wlcontactform form input {
+	background-color: #dbeff7;
+}
+.wlcontact .wlcontactform form input:focus {
+	background-color: white;
+}
+.hr {
+	display: inline-block;
+	width: 83px;
+	height: 7px;
+	margin: 5px 20px;
+}
+.white .hr {
+	background: url('../img/divide-w.png') 50% no-repeat;
+}
+.black .hr {
+	background: url('../img/divide-b.png') 50% no-repeat;
+}
+/* home */
+section#home {
+	width: 100%;
+	min-height: 650px;
+	background: url('../img/earth.png') 50% 0 no-repeat;
+	background-size: cover;
+}
+section#home .welcome {
+	position: relative;
+	top: 140px;
+}
+section#home .welcome div.superw {
+	position: absolute;
+	left: 360px;
+	top: -110px;
+	width: 78px;
+	height: 140px;
+	background: url('../img/sw.png') 50% no-repeat;
+	background-size: 78px 140px;
+}
+body.fr section#home .welcome div.superw {
+	left: 374px;
+}
+section#home .welcome h1 {
+	font-size: 0.9em;
+	text-align: center;
+	font-weight: 300;
+	text-shadow: 1px 1px 2px #000;
+	position: relative;
+	text-transform: uppercase;
+}
+section#home .welcome h2 {
+	position: relative;
+	text-indent: 100%;
+    white-space: nowrap;
+    height: 34px;
+    width: 100%;
+    overflow: hidden;
+}
+body.en section#home .welcome h2 {
+    background: url('../img/info-en.png') 50% no-repeat;
+}
+body.fr section#home .welcome h2 {
+    background: url('../img/info-fr.png') 50% no-repeat;
+}
+section#home .brands {
+	position: relative;
+	top: 160px;
+}
+section#home .brands .brands_available {
+	position: relative;
+	margin: 20px 0px;
+}
+section#home .brands .brands_available #left, section#home .brands .brands_available #right {
+	display: block;
+	position: absolute;
+	top: 20px;
+	width: 22px;
+	height: 77px;
+	cursor: pointer;
+	z-index: 100;
+}
+section#home .brands .brands_available #left {
+	background: url('../img/arr-l.png') 50% no-repeat;
+}
+section#home .brands .brands_available #right {
+	right:0;
+	background: url('../img/arr-r.png') 50% no-repeat;
+}
+section#home .brands .brands_available .caro {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	height: 110px;
+	margin: 0 22px;
+}
+section#home .brands .brands_available .caro .caro-inner {
+	position: relative;
+}
+section#home .brands .brands_available .caro .single {
+	float: left;
+	width: 173px;
+	text-align: center;
+}
+section#home .brands .brands_available .single .wrapper {
+	position: relative;
+	height: 70px;
+}
+section#home .brands .brands_available .single .wrapper img {
+	margin: auto;
+	position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;
+}
+section#home .brands .brands_available .single .no {
+	font-size: 0.7em;
+	font-weight: 400;
+	color: black;
+	background: white;
+	padding: 2px;
+	width: 26px;
+	margin: auto;
+	margin-top: 8px;
+}
+
+/* watches */
+section#watches {
+	width: 100%;
+	/*min-height: 1000px;*/
+	background: black url('../img/sky.png') 50% 0 no-repeat;
+	background-size: cover;
+	position: relative;
+}
+section#watches .recent {
+	margin-top: 50px;
+}
+section#watches h3 {
+	margin-bottom: 30px;
+}
+section#watches .brands {
+	border-left: solid 1px white;
+}
+section#watches .brands input.watchsearch {
+	height: 25px;
+	position: relative;
+	width: 124px;
+	font-weight: 300;
+	font-size: 0.9em;
+	color: white;
+	text-transform: none;
+	border: solid 1px white;
+	background: none;
+	padding-left: 6px;
+	padding-right: 14px;
+	margin-bottom: 8px;
+	background: url('../img/icon-search.png') 106px 50% no-repeat;
+}
+body.fr section#watches .brands input.search {
+	width: 134px;
+	background-position: 116px 50%;
+}
+section#watches .brands ul {
+	font-weight: 300;
+	font-size: 0.9em;
+	list-style: none;
+	list-style-position: 0;
+	padding: 0;
+	position: relative;
+	left: -15px;
+}
+section#watches .brands ul li {
+	padding-bottom: 5px;
+	padding-left: 15px;
+}
+section#watches .brands ul li.active {
+	background: url('/img/marker-left.png') 0px 40% no-repeat;
+}
+section#watches .brands ul li a {
+	color: white;
+	font-size: 1em;
+}
+section#watches div.sw {
+	width: 235px;
+	height: 260px;
+	margin-right: 16px;
+	margin-bottom: 16px;
+	float: left;
+	text-align: center;
+}
+section#watches div.sw .img {
+	position: relative;
+	width: 100%;
+	height: 235px;
+}
+section#watches div.sw .img .details {
+	position: absolute;
+	width: 219px;
+	height: 219px;
+	margin: 8px;
+	display: none;
+	cursor: pointer;
+}
+section#watches div.sw .img .details .wrapper {
+	text-align: left;
+	position: absolute;
+	width: 100%;
+	font-size: 0.9em;
+	line-height: 1.4em;
+	color: black;
+	padding: 8px;
+}
+section#watches div.sw .img .details .wrapper .share {
+	float: right;
+}
+section#watches div.sw .img .details .wrapper .share a {
+	display: block;
+	margin-bottom: 6px;
+	text-align: center;
+}
+section#watches div.sw .img .details .wrapper .share a.pinterest {
+	width: 18px;
+	height: 18px;
+	background: url('../img/pinterest-b.png') 50% no-repeat;
+}
+section#watches div.sw .img .details .wrapper .share a.facebook {
+	width: 18px;
+	height: 13px;
+	background: url('../img/facebook-b.png') 50% no-repeat;
+}
+section#watches div.sw .img .details .wrapper .share a.email {
+	width: 18px;
+	height: 13px;
+	background: url('../img/email-b.png') 50% no-repeat;
+}
+section#watches div.sw .img .details .wrapper .contact {
+	text-align: center;
+	margin-top: 12px;
+}
+section#watches div.sw .img .details .wrapper .contact button {
+	width: 120px;
+}
+section#watches div.sw .img .details .bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border: solid 1px silver;
+	background: white;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+	opacity: 0.9;
+}
+section#watches div.sw h4.name {
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8em;
+	margin: 0;
+	padding: 6px 0;
+	width: 100%;
+	color: white;
+	font-weight: 300;
+}
+section#watches div.sw .name strong {
+	font-weight: 500;
+}
+section#watches div.sw .price {
+	font-family: 'Roboto', sans-serif;
+	display: block;
+	margin-top: 3px;
+	color: #2099cd;
+	font-weight: 400;
+}
+section#watches div.sw .contactbox {
+	position: relative;
+	width: 100%;
+	height: 235px;
+	background: url('../img/contact_bg.png') 50% no-repeat;
+	padding: 10px;
+	padding-top: 20px;
+}
+section#watches div.sw .contactbox p {
+	font-size: 0.8em;
+}
+section#watches .input-group .input-group-addon {
+	border: solid 1px;
+	background: #226494;
+	color: white;
+	border-left: none;
+	height: 29px;
+}
+section#watches div.sw .contactbox .inputs {
+	padding: 0 10px;
+	border-color: white;
+	font-weight: 300;
+	font-size: 1em;
+	color: white;
+}
+section#watches div.sw .contactbox textarea {
+	font-weight: 300;
+	font-size: 12px;
+	background: none;
+	color: white;
+	padding: 6px;
+	border-color: white;
+	margin-bottom: 8px;
+}
+section#watches div.sw .contactbox input, section#watches div.sw .contactbox button {
+	font-weight: 300;
+	font-size: 12px;
+	border-color: white;
+	background: none;
+	color: white;
+	padding-left: 6px;
+}
+section#watches div.sw .contactbox input#cbname {
+	margin-bottom: 6px;
+}
+.has-error input {
+	border: solid 1px red !important;
+}
+.has-error .input-group-addon {
+	border-color: red !important;
+}
+section#watches div.sw .contactbox button .caret {
+	border-top-color: white;
+}
+section#watches div.sw .contactbox .bootstrap-select-searchbox input {
+	color: white;
+	background: black;
+	border: none;
+	border-bottom: 1px solid white;
+}
+section#watches div.sw .contactbox .btn-group {
+	padding: 0 !important;
+}
+section#watches div.sw .contactbox .dropdown-menu {
+	border: solid 1px #fff;
+	background: black;
+}
+section#watches div.sw .contactbox .others {
+	font-weight: 700 !important;
+}
+section#watches div.sw .contactbox .dropdown-menu.inner {
+	background: black;
+	padding-bottom: 8px;
+	border: none;
+	border-right: 1px solid white;
+}
+section#watches div.sw .contactbox .dropdown-menu li > a {
+	padding:4px 5px;
+	color: #fff;
+	font-weight: 300;
+	font-size: 0.9em;
+	text-align: left;
+	padding-left: 8px;
+}
+
+section#guaranty‎ {
+	width: 100%;
+	min-height: 400px;
+	background: white url('../img/divider-b-l.png') 50% 0px repeat-x;
+	color: black;
+}
+section#guaranty‎ p {
+	margin: 10px 0;
+	padding-top: 4px;
+	font-weight: 400;
+}
+section#guaranty‎ .authentic, section#guaranty‎ .certificate, section#guaranty‎ .warranty, section#guaranty‎ .security {
+	margin-top: 30px;
+	padding-top: 90px;
+	font-weight: 400;
+	font-size: 1.1em;
+	text-align: center;
+}
+section#guaranty‎ .authentic {
+	background: url('../img/diamond.png') 50% 1px no-repeat;
+}
+section#guaranty‎ .certificate {
+	background: url('../img/medal.png') 50% 1px no-repeat;
+}
+section#guaranty‎ .warranty {
+	background: url('../img/warranty.png') 50% 1px no-repeat;
+}
+section#guaranty‎ .warranty span {
+	font-size: 0.8em;
+	display: block;
+}
+section#guaranty‎ .security {
+	background: url('../img/delivery.png') 50% 1px no-repeat;
+}
+section#philosophy {
+	color: black;
+}
+section#philosophy .sw {
+	position: relative;
+	left: -50px;
+	width: 209px;
+	height: 399px;
+	background: url('../img/sw.png') 50% no-repeat;
+}
+section#sell {
+	width: 100%;
+	min-height: 630px;
+	color: black;
+}
+section#sell form#watch-submit label {
+	color: #226494;
+	text-transform: uppercase;
+	font-weight: 400;
+	font-size: 0.9em;
+}
+section#sell form#watch-submit label.radio-inline {
+	color: #999;
+	text-transform: none;
+}
+section#sell form#watch-submit button[type=submit] {
+	margin-top: -20px;
+}
+section#sell form#watch-submit .input-sm {
+	padding: 0;
+	padding-left: 5px;
+	font-weight: 400;
+	font-size: 0.9em;
+}
+section#sell form#watch-submit .brand-select .dropdown-menu {
+	border: solid 1px #999;
+}
+section#sell form#watch-submit .brand-select .others {
+	font-weight: 700 !important;
+}
+section#sell form#watch-submit .brand-select .dropdown-menu.inner {
+	background: white;
+	padding-bottom: 8px;
+	border: none;
+}
+section#sell form#watch-submit .brand-select .dropdown-menu li > a {
+	padding:4px 5px;
+	color: #999;
+	font-weight: 400;
+	font-size: 0.9em;
+}
+section#sell form#watch-submit .brand-select .dropdown-menu li > a:hover {
+	color: white;
+	background: #226494;
+}
+section#sell form#watch-submit .brand-select .input-sm {
+	padding: 0;
+}
+section#sell form#watch-submit .brand-select .input-sm .btn {
+	padding: 5px 10px;
+}
+section#sell form#watch-submit .brand-select .input-sm .btn .filter-option {
+	font-size: 0.9em;
+	font-weight: 400;
+	color: #999;
+	top: 7px;
+}
+section#sell form#watch-submit #filesToUpload {
+	position: relative;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	opacity: 0;
+	z-index: 2;
+}
+section#sell form#watch-submit .pictures-selected {
+	position: absolute;
+	left: 290px;
+	top: 6px;
+	width: 224px;
+	display: none;
+}
+section#sell form#watch-submit #pictures-list {
+	padding-left: 10px;
+	list-style-image: url('/img/marker-left-b.png');
+	font-size: 0.8em;
+}
+section#sell form#watch-submit #pictures-upload {
+	position: relative;
+	top: -35px;
+}
+section#sell form#watch-submit #sell-info {
+	position: absolute;
+	float: left;
+	left: 120px;
+	top: -24px;
+	line-height: 1.3em;
+	display: none;
+}
+section#brands {
+	width: 100%;
+	min-height: 350px;
+}
+section#brands .single {
+	width: 14.28%;
+	height: 70px;
+	float: left;
+	text-align: center;
+}
+section#brands .single img {
+}
+section#brands .single .no {
+	font-size: 0.6em;
+	font-weight: 400;
+	background: #7f7f7f;
+	width: 20px;
+	margin: auto;
+	margin-top: 8px;
+}
+section#contact {
+	position: relative;
+	width: 100%;
+	min-height: 760px;
+/*	background: url('../img/space.png') 50% 0 no-repeat;
+	background-size: cover;
+*/background: url('../img/space.png') 50% 100% no-repeat;
+	background-size: 100%;}
+section#contact .container {
+	position: relative;
+	z-index: 12;
+}
+section#contact .planets {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: url('../img/planets.png') 80% 100% no-repeat;
+}
+section#contact .frame {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9;
+	background: url('../img/frame.png') 50% 150% no-repeat;
+}
+section#contact .icon {
+	margin-bottom: 16px;
+}
+section#contact .location, section#contact .newsletter,  section#contact .available {
+	margin-top: 20px;
+	text-align: center;
+	color: black;
+	font-size: 0.9em;
+}
+section#contact h5 {
+	font-size: 1.6em;
+	font-weight: 300;
+	margin-top: 0;
+	margin-bottom: 6px;
+}
+section#contact .input-group {
+	margin: 10px 30px;
+}
+section#contact .input-group input {
+	border: solid 1px black;
+	border-right: none;
+}
+section#contact .input-group .input-group-addon {
+	border: solid 1px black;
+	background: #226494;
+	color: white;
+	border-left: none;
+}
+section#contact .faceinsta {
+	display: inline-block;
+	margin: 8px 4px;
+}
+section#contact .newsletter .pin {
+	margin-top: 40px;
+	position: relative;
+	z-index: 10;
+}
+section#contact .available h5 {
+	color: #226494;
+}
+section#contact .footer {
+	position: absolute;
+	bottom: 0;
+	z-index: 100;
+	width: 100%;
+	height: 65px;
+}
+section#contact .footer a {
+	color: white;
+}
+section#contact .footer h6 {
+	margin: 0;
+	font-weight: 300;
+	font-size: 0.9em;
+}
+section#contact .footer p {
+	font-size: 0.8em;
+	margin: 0;
+	font-weight: 300;
+}
+section#contact .footer .bg {
+	position: absolute;
+	background: black;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=28)";
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=28);
+	opacity: 0.28;
+}
+section#contact .footer .copy {
+	padding-top: 15px;
+}
+section#contact .footer .logo {
+	padding-top: 15px;
+	text-align: center;
+}
+section#contact .footer .upconditions {
+	padding-top: 15px;
+	text-align: right;
+}
+/* retina */
+@media all and (-webkit-min-device-pixel-ratio: 1.5) {
+	.laravel_language_chooser li.active {
+		background: url('../img/markerlang@2x.png') 50% 0px no-repeat;
+		background-size: 10px 4px;
+	}
+	section#guaranty‎ .sw {
+		background: url('../img/sw@2x.png') 50% no-repeat;
+		background-size: 209px 399px;
+	}
+
+	section#guaranty‎ .authentic {
+		background: url('../img/diamond@2x.png') 50% 1px no-repeat;
+		background-size: 68px 55px;
+	}
+	section#guaranty‎ .certificate {
+		background: url('../img/medal@2x.png') 50% 1px no-repeat;
+		background-size: 47px 66px;
+	}
+	section#guaranty‎ .warranty {
+		background: url('../img/warranty@2x.png') 50% 1px no-repeat;
+		background-size: 63px 62px;
+	}
+	section#guaranty‎ .security {
+		background: url('../img/delivery@2x.png') 50% 1px no-repeat;
+		background-size: 64px 53px;
+	}
+
+	section#watches div.sw .img .details .wrapper .share a.pinterest {
+		background: url('../img/pinterest-b@2x.png') 50% no-repeat;
+		background-size: 18px 17px;
+	}
+	section#watches div.sw .img .details .wrapper .share a.facebook {
+		background: url('../img/facebook-b@2x.png') 50% no-repeat;
+		background-size: 8px 13px;
+	}
+	section#watches div.sw .img .details .wrapper .share a.email {
+		background: url('../img/email-b@2x.png') 50% no-repeat;
+		background-size: 18px 13px;
+	}
+	.wsicon-plus-b {
+		background: url('../img/icon-plus-b.png') 50% no-repeat;
+		background-size: 10px 10px;
+	}
+	.wsicon-eclair-w  {
+		background: url('../img/eclair-w@2x.png') 50% no-repeat;
+		background-size: 8px 12px;
+	}
+	.white .hr {
+		background: url('../img/divide-w@2x.png') 50% no-repeat;
+		background-size: 83px 7px;
+	}
+	body.en section#home .welcome h2 {
+	    background: url('../img/info-en@2x.png') 50% 0 no-repeat;
+		background-size: 570px 34px;
+	}
+	body.fr section#home .welcome h2 {
+	    background: url('../img/info-fr@2x.png') 50% 0 no-repeat;
+		background-size: 570px 34px;
+	}
+	section#watches .brands input.search {
+		background: url('../img/icon-search@2x.png') 106px 50% no-repeat;
+		background-size: 12px 11px;
+	}
+	ul.mitems li.search input {
+		background: url('../img/icon-search@2x.png') 116px 50% no-repeat;
+		background-size: 12px 11px;
+	}
+	body.fr ul.mitems li.search input {
+		background-position: 126px 50%;
+	}
+	#menu2 .marker {
+		background: url('../img/marker-b@2x.png');
+		background-size: 76px 9px;
+	}
+	.wsicon-plus {
+		background-image: url('../img/icon-plus@2x.png');
+		background-size: 10px 10px;
+	}
+	.wsicon-search {
+		background-image: url('../img/icon-search@2x.png');
+		background-size: 12px 11px;
+	}
+	.contactbtns .btn.wish {
+		background: black url('../img/icon-plus@2x.png') 50% no-repeat;
+		background-size: 10px 10px;
+	}
+	.contactbtns .btn.facebook {
+		background: black url('../img/facebook-w@2x.png') 50% no-repeat;
+		background-size: 6px 11px;
+	}
+	.contactbtns .btn.pinterest {
+		background: black url('../img/pinterest-w@2x.png') 50% no-repeat;
+		background-size: 17px 17px;
+	}
+	.contactbtns .btn.email {
+		background: black url('../img/email-w@2x.png') 50% no-repeat;
+		background-size: 18px 13px;
+	}
+}

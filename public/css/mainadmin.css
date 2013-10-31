@@ -1,0 +1,81 @@
+.changelang {
+	text-transform: uppercase;
+}
+label {
+	text-transform: uppercase;
+}
+label.filllangs {
+	color: #428bca;
+}
+.show-grid {
+	margin-bottom: 10px;
+}
+#update_form {
+	display: none;
+}
+#create_form {
+	display: none;
+}
+#main {
+	margin-top: 60px;
+}
+.images-container {
+	margin-top: 10px;
+	width: inherit;
+}
+.images-container div {
+	padding: 6px;
+	padding-left: 0;
+	cursor: move;
+}
+/* Watches list */
+table.list th {
+	white-space: nowrap;
+}
+table.list tbody td {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+table.list tbody td.sel {
+	padding: 0 !important;
+}
+.thumb {
+	cursor: pointer;
+}
+.thumb_prev {
+	position: absolute;
+	border: solid 1px silver;
+}
+.btn-0, .btn-0:hover {
+	border: none;
+}
+.btn-1, .btn-1:hover {
+	background-color: #5bc0de !important;
+	border: none;
+}
+.btn-2, .btn-2:hover {
+	background-color: #5cb85c !important;
+	border: none;
+}
+.btn-3, .btn-3:hover {
+	background-color: #d9534f !important;
+	border: none;
+}
+.btn-4, .btn-4:hover {
+	background-color: #f0ad4e !important;
+	border: none;
+}
+.btn-5, .btn-5:hover {
+	background-color: #999 !important;
+	border: none;
+}
+.color-codes h3 {
+	line-height:inherit;
+	margin-top:0;
+}
+.invisible4user {
+	background-color: aliceblue;
+}
+.sel_payment, .sel_status {
+	margin-bottom: 0 !important;
+}

@@ -1,0 +1,1 @@
+{{ Form::select('model_id', $model, $new_model_id, ['class'=>'form-control']) }}
