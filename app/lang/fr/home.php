@@ -2,6 +2,11 @@
 
 return array(
 
+'Thank you for subscribing.' => 'Merci de vous être inscrit.<br>Vous allez recevoir un e-mail d\'ici peu.',
+'Files selected:' => 'Fichiers sélectionnés:',
+'Thank you. I will contact you as soon as possible.' => 'Merci, je vous contacterai au plus vite.',
+'Message was not sent.' => 'Le message n\'a pas été envoyé. Veuillez svp réessayer.<br>Ou nous contacter par e-mail ou téléphone.',
+
 'CONTACT ME ABOUT THIS WATCH' => 'ME CONTACTER A PROPOS DE CETTE MONTRE',
 '0' => 'Non',
 '1' => 'Oui',

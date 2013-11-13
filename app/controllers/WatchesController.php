@@ -103,6 +103,12 @@ class WatchesController extends BaseController {
 	 */
 	public function show($id)
 	{
+		if(!Session::get('watchesall')) {
+			return Redirect::to(Config::get('application.language'));
+		}
+		foreach (Session::get('watchesall') as $key => $value) {
+			if($value->id==$id) $current = $key;
+		}
 		$watch = Watch::with(array('images' => function($query)
 		{
 		    $query->orderBy('order');
@@ -124,10 +130,10 @@ class WatchesController extends BaseController {
 			'buckles' => $buckles,
 			'papers' => $papers,
 			'watch' => $watch,
-			'brands' => $brands
+			'brands' => $brands,
+			'current' => $current
 		);
 		return View::make('watches.show', $data);
-		// return $watch;
 	}
 
 	/**
@@ -235,6 +241,11 @@ class WatchesController extends BaseController {
 		//
 	}
 
+	public function listWatches()
+	{
+		
+	}
+
 	public function watchesInBrand($brand_id)
 	{
 		// returns the watches list
@@ -242,6 +253,7 @@ class WatchesController extends BaseController {
 		{
 		    $query->where('order', '=', '1');
 		}))
+		->where('status_id', '=', '2')
 		->where('brand_id', '=', $brand_id)
 		->orderBy('created_at')->paginate(8);
 
@@ -262,8 +274,23 @@ class WatchesController extends BaseController {
 			'buckles' => $buckles,
 			'papers' => $papers,
 			'watches' => $watches,
-			'brands' => $brands
+			'brands' => $brands,
+			'selected_brand' => $brand_id
 		);
+		$watchesall = Watch::where('status_id', '=', '2')
+		->where('brand_id', '=', $brand_id)
+		->join('brands', 'brands.id', '=', 'watches.brand_id')
+		->join('models', 'models.id', '=', 'watches.model_id')
+		->select(
+			'watches.id',
+			'brands.name as brandname',
+			'models.name as modelname',
+			'watches.created_at')
+		->orderBy('created_at')
+		->get();
+		Session::set('watchesall', $watchesall);
+		Session::set('watches_url','/brand/'.$brand_id.'/'.$brandslist[$brand_id]);
+		Session::set('page',$watches->getCurrentPage());
 		return View::make('watches.single', $data);
 	}
 
@@ -274,6 +301,7 @@ class WatchesController extends BaseController {
 		{
 		    $query->where('order', '=', '1');
 		}))
+		->where('status_id', '=', '2')
 		->orderBy('created_at')->paginate(8);
 
 		$brands = Brand::with('watches')->orderBy('name')->get();
@@ -293,27 +321,30 @@ class WatchesController extends BaseController {
 			'buckles' => $buckles,
 			'papers' => $papers,
 			'watches' => $watches,
-			'brands' => $brands
+			'brands' => $brands,
+			'selected_brand' => 'all'
 		);
+		Session::set('watches_url','/watch/all');
+		Session::set('page',$watches->getCurrentPage());
 		return View::make('watches.single', $data);
 	}
 
-	public function searchBrand($str)
-	{
-		$brands = DB::table('watches')
-			->Join('brands', 'brands.id', '=', 'watches.brand_id')
-			->where('brands.name', 'LIKE', '%'.$str.'%')
-			->lists('name', 'brand_id');
-		return $brands;
-	}
-	public function searchModel($str)
-	{
-		$models = DB::table('watches')
-			->Join('models', 'models.id', '=', 'watches.model_id')
-			->where('models.name', 'LIKE', '%'.$str.'%')
-			->lists('name', 'model_id');
-		return $models;
-	}
+	// public function searchBrand($str)
+	// {
+	// 	$brands = DB::table('watches')
+	// 		->Join('brands', 'brands.id', '=', 'watches.brand_id')
+	// 		->where('brands.name', 'LIKE', '%'.$str.'%')
+	// 		->lists('name', 'brand_id');
+	// 	return $brands;
+	// }
+	// public function searchModel($str)
+	// {
+	// 	$models = DB::table('watches')
+	// 		->Join('models', 'models.id', '=', 'watches.model_id')
+	// 		->where('models.name', 'LIKE', '%'.$str.'%')
+	// 		->lists('name', 'model_id');
+	// 	return $models;
+	// }
 
 	public function searchBrandModel($str)
 	{

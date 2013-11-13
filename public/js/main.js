@@ -12,11 +12,36 @@
 	App.Vars.i; // preview current item
 	App.Vars.t; // preview total items
 	App.Vars.Phref = 'watch/all'; // currect watches shown without paging
+	App.found = {};
+	App.found.brand = {};
+	App.found.model = {};
 })();
 // email validation
 isEmail = function(email) {
 	var pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return pattern.test(email);
+}
+// url params
+parseURLParams = function(url) {
+  var queryStart = url.indexOf("?") + 1;
+  var queryEnd   = url.indexOf("#") + 1 || url.length + 1;
+  var query      = url.slice(queryStart, queryEnd - 1);
+
+  if (query === url || query === "") return;
+
+  var params  = {};
+  var nvPairs = query.replace(/\+/g, " ").split("&");
+
+  for (var i=0; i<nvPairs.length; i++) {
+    var nv = nvPairs[i].split("=");
+    var n  = decodeURIComponent(nv[0]);
+    var v  = decodeURIComponent(nv[1]);
+    if ( !(n in params) ) {
+      params[n] = [];
+    }
+    params[n].push(nv.length === 2 ? v : null);
+  }
+  return params;
 }
 // section
 $.setSection = function() {
@@ -90,7 +115,14 @@ $.resizeFunc = function () {
 	$('section#home').height($newheight);
 	$.setSection();
 }
-$.setWatchesList = function() {
+$.setWatchesList = function(id) {
+	// set marker in menu
+	if(typeof(id)==='undefined') {
+		id='all';
+	} else if(id!=='nochange') {
+		$('section#watches .brands li').removeClass('active');
+		$('section#watches .brands a[data-brand-id='+id+']').parent().addClass('active');
+	}
 	// show watch detail
 	$('section#watches div.sw .img').hover(function() {
 		$(this).find('.details').fadeIn(100);
@@ -103,7 +135,7 @@ $.setWatchesList = function() {
 		event.preventDefault();
 		$id = $(this).data('watch-id');
 		$name = $(this).data('watch-name');
-		var pathname = window.location.href.split("#")[0];
+		var pathname = window.location.href.split("?")[0];
 		window.location = pathname+'/watch/'+$id+'?'+$name;
 	});
 	// contact for watch
@@ -122,8 +154,11 @@ $.setWatchesList = function() {
 	$('button.addtowishlist, div.addtowishlist').on('click', function(event) {
 		event.preventDefault();
 		event.stopPropagation();
-		$.get('/addtowishlist/'+$(this).data('watch-id'), function(data) {
+		$t=$(this);
+		$.get('/addtowishlist/'+$t.data('watch-id'), function(data) {
 			$('span.wishnum').html('('+data+')');
+			// $t.slideUp();
+			$t.fadeOut('200');
 		});
 	});
 	// select
@@ -149,10 +184,11 @@ $.setWatchesList = function() {
 $.setresultEvents = function() {
 	$('.found').on('click', function(event) {
 		event.preventDefault();
-		$('#result').remove();
 		$t = $(this);
-		// scroll to watches
-
+		$('#result').remove();
+		if($t.data('found')=='brand') {
+			$.loadBrand($t.data('brand-id'),'/brand/'+$t.data('brand-id')+'/'+$t.data('brandname'));
+		}
 	});
 }
 $.Next = function() {
@@ -263,6 +299,20 @@ $.setupPicturesU = function() {
 	});
 	container.show();
 }
+$.setupConditions = function() {
+	$('#conditionsModal .title').on('click', function(event) {
+		event.preventDefault();
+		var t = '#'+$(this).data('open');
+		$(t).toggleClass('open');
+		if($(t).hasClass('open')) {
+			$(t).slideDown();
+			$(this).find('span').addClass('open');
+		} else {
+			$(t).slideUp();
+			$(this).find('span').removeClass('open');
+		}
+	});
+}
 stopSell = function(message) {
 	$('.pictures-selected').hide();
 	$('.glyphicon-refresh').removeClass('glyphicon-refresh').addClass('glyphicon-chevron-right');
@@ -277,7 +327,20 @@ stopSell = function(message) {
 	$('#phone').val('');
 	$('#email').val('');
 }
-
+$.loadBrand = function(id,href) {
+	// scroll to watches
+	$("html, body").animate({ scrollTop: $("section#watches").offset().top-$('#menu2').height() }, 600, function(){
+		$.moveM1pos();
+		$.moveM2pos();
+	});
+	App.Vars.Phref = href;
+	$.get(href, function(data) {
+		$('section#watches .watchlist').hide().html(data).fadeIn('slow');
+	})
+	.done(function(){
+		$.setWatchesList(id);
+	});
+}
 jQuery(document).ready(function($) {
 	// show preview
 	$('.showprev').on('click', function(event) {
@@ -299,14 +362,33 @@ jQuery(document).ready(function($) {
 		$top = $t.offset().top+$t.outerHeight();
 		if (e.keyCode == 27) {$(e.currentTarget).val('')}
 		$('#result').remove();
+		App.found.brand={};
+		App.found.model={};
 		// console.log($(e.currentTarget).val());
 		if($(e.currentTarget).val().length>2) {
 			$.get('/searchbrandmodel/'+$(e.currentTarget).val(), function(data) {
 				if(data.length){
 					var html='';
 					$.each(data, function(index, el) {
-						$f = $(this);
-						html+='<li class="found" data-brand_id="'+$f[0].brand_id+'">'+$f[0].brandname+' - '+$f[0].modelname+'</li>';
+						$f = $(this)[0];
+						if($f.matchedtype=='brand') {
+							if(App.found.brand[$f.brand_id]==undefined) App.found.brand[$f.brand_id]=$f.brandname;
+						}
+						if($f.matchedtype=='model') {
+							if(App.found.model[$f.brand_id+$f.model_id]==undefined) {
+								App.found.model[$f.brand_id+$f.model_id]={};
+								App.found.model[$f.brand_id+$f.model_id].brandname=$f.brandname;
+								App.found.model[$f.brand_id+$f.model_id].brandid=$f.brand_id;
+								App.found.model[$f.brand_id+$f.model_id].modelname=$f.modelname;
+								App.found.model[$f.brand_id+$f.model_id].modelid=$f.model_id;
+							}
+						}
+					});
+					$.each(App.found.brand, function(i,el){
+						html+='<li class="found" data-found="brand" data-brand-id="'+i+'" data-brandname="'+App.found.brand[i]+'">'+App.found.brand[i]+'</li>';
+					});
+					$.each(App.found.model, function(i,el){
+						html+='<li class="found" data-found="model" data-brand-id="'+App.found.model[i].brandid+'" data-model-id="'+App.found.model[i].modelid+'">'+App.found.model[i].modelname+' - '+App.found.model[i].brandname+'</li>';
 					});
 					resdiv = $('<div />');
 					resdiv.attr('id', 'result');
@@ -314,18 +396,25 @@ jQuery(document).ready(function($) {
 					resdiv.css('left', $left);
 					resdiv.html('<ul>'+html+'</ul>');
 					$('body').append(resdiv);
+					$.setresultEvents();
 				}
 			});
 		};
 	})
+	// conditions
+	$('.conditions').on('click', function(event) {
+		event.preventDefault();
+		$('#conditionsModal .modal-body').load('/conditions/', function(){
+			$.setupConditions();
+		});
+		$('#conditionsModal').modal('show');
+	});
 	// sell watch
 	$('form#watch-submit').submit(function(event) {
-		event.preventDefault();
-		$t = $(this);
 		if (isEmail($('form#watch-submit #email').val())) {
 			$('.glyphicon-chevron-right').removeClass('glyphicon-chevron-right').addClass('glyphicon-refresh');
-				return true;
-			} else {
+		} else {
+			event.preventDefault();
 			$('form#watch-submit #email').parent().addClass('has-error').delay(1000).queue(function(next){
 				$(this).removeClass('has-error');
 				next();
@@ -381,19 +470,12 @@ jQuery(document).ready(function($) {
 		}
 	});
 	// show brand
-	$('section#watches .brands a').on('click', function(event) {
+	$('section#watches .brands a, .brands_available .single').on('click', function(event) {
 		$t = $(this);
-		event.preventDefault();
+		$id = $t.data('brand-id');
 		$href=$(this).attr('href');
-		App.Vars.Phref = $href;
-		$.get($href, function(data) {
-			$('section#watches .watchlist').hide().html(data).fadeIn('slow');
-		})
-		.done(function(){
-			$.setWatchesList();
-			$('section#watches .brands li').removeClass('active');
-			$t.parent().addClass('active');
-		});
+		event.preventDefault();
+		$.loadBrand($id,$href);
 	});
 	// pagination on page
 	$('.pager a').on('click', function(event) {
@@ -415,7 +497,7 @@ jQuery(document).ready(function($) {
 				$('section#watches .watchlist').hide().html(data).fadeIn('slow');
 			})
 			.done(function(){
-				$.setWatchesList();
+				$.setWatchesList('nochange');
 				// setup prev/next links
 				$.setupPlinks();
 			});
@@ -427,7 +509,7 @@ jQuery(document).ready(function($) {
 		var pathname = window.location.href.split("404")[0];
 		window.location = pathname;
 	});
-	$('.menulnk a').on('click', function(event) {
+	$('.menulnk a, a.scrolllnk').on('click', function(event) {
 		var href=$(this).attr("href");
 		var section = href.substring(href.indexOf("#")+1);
 		App.Options.newsection = section;
@@ -461,7 +543,7 @@ jQuery(document).ready(function($) {
 		$items = $('.caro-inner .single').length;
 		if(App.Vars.currentitem<($items-5)) {
 			$('.caro-inner').animate({
-				left: "-=173"
+				left: "-=865" // 173
 				},
 				300, function() {
 				App.Vars.currentitem++;
@@ -472,7 +554,7 @@ jQuery(document).ready(function($) {
 		event.preventDefault();
 		if(App.Vars.currentitem>0) {
 			$('.caro-inner').animate({
-				left: "+=173"
+				left: "+=865"
 				},
 				300, function() {
 				App.Vars.currentitem--;
@@ -504,22 +586,34 @@ jQuery(document).ready(function($) {
 	// select
 	$('.selectpicker').selectpicker();
 	$('.selectpicker2').selectpicker();
-	$.setWatchesList();
 	// init
 	$(window).resize();
 	$(window).scroll();
 });
 $(window).load(function() {
 	// hash scroll
-	if(window.location.hash) {
-		section = window.location.hash.substring(2);
-		App.Options.newsection = section;
-		if($("section#"+section).length) {
+	var urlParams = parseURLParams(window.location.href);
+	if(urlParams!==undefined) {
+		var section=false;
+		if (urlParams.watches=='all') {
+		// 	$.loadBrand('all','/watch/all');
+			section = 'watches';
+		};
+		if (urlParams.section!==undefined) {
+			section=urlParams.section;
+		};
+		if(section) {
 			$("html, body").animate({ scrollTop: $("section#"+section).offset().top-$('#menu2').height() }, 600, function(){
 				$.moveM1pos();
 				$.moveM2pos();
 			});
-			history.pushState("", document.title, window.location.pathname + window.location.search);
+			history.pushState("", document.title, window.location.pathname);
+		}
+	}
+	if(window.location.hash) {
+		section = window.location.hash.substring(2);
+		App.Options.newsection = section;
+		if($("section#"+section).length) {
 		}
 	}
 });

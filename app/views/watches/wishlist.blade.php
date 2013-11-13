@@ -8,13 +8,13 @@ wishlist @stop
 <section id="watches">
 	<div id="menu2">
 		<div class="container">
-			<div class="logo">SuperWatch</div>
+			<a href="#home" class="scrolllnk"><div class="logo">SuperWatch</div></a>
 			<ul class="mitems">
-				<li class="menulnk home"><a href="/{{ Session::get('language') }}/##home">{{Lang::get('home.HOME')}}</a></li>
-				<li class="menulnk watches"><a href="/{{ Session::get('language') }}/##watches">{{Lang::get('home.WATCHES')}}</a></li>
-				<li class="menulnk guaranty‎"><a href="/{{ Session::get('language') }}/##guaranty‎">{{Lang::get('home.GUARANTEE')}}</a></li>
-				<li class="menulnk philosophy"><a href="/{{ Session::get('language') }}/##philosophy">{{Lang::get('home.PHILOSOPHY')}}</a></li>
-				<li class="menulnk sell"><a href="/{{ Session::get('language') }}/##sell">{{Lang::get('home.SELL MY WATCH')}}</a></li>
+				<li class="menulnk home"><a href="/{{ Session::get('language') }}/?section=home">{{Lang::get('home.HOME')}}</a></li>
+				<li class="menulnk watches"><a href="/{{ Session::get('language') }}/?watches=all">{{Lang::get('home.WATCHES')}}</a></li>
+				<li class="menulnk guaranty‎"><a href="/{{ Session::get('language') }}/?section=guaranty‎">{{Lang::get('home.GUARANTEE')}}</a></li>
+				<li class="menulnk philosophy"><a href="/{{ Session::get('language') }}/?section=philosophy">{{Lang::get('home.PHILOSOPHY')}}</a></li>
+				<li class="menulnk sell"><a href="/{{ Session::get('language') }}/?section=sell">{{Lang::get('home.SELL MY WATCH')}}</a></li>
 				<li class="menulnk contact"><a href="#contact">{{Lang::get('home.CONTACT')}}</a></li>
 				<li class="wishlist"><a href="#"><span class="wsicon wsicon-plus"></span> {{Lang::get('home.MY WISHLIST')}} <span class="wishnum">@if(count(Session::get('wishlist'))) ({{count(Session::get('wishlist'))}}) @else (0) @endif</span></a></li>
 				<li class="search"><input type="text" class="watchsearch" placeholder="{{Lang::get('home.Search for a Watch')}}" /></li>
@@ -31,7 +31,7 @@ wishlist @stop
 				<div class="th remove">REMOVE</div>
 				@foreach($watches as $watch)
 				<div class="wlsingle">
-					<div class="wlimg"><a href="/{{Config::get('application.language')}}/watch/{{ $watch->id }}"><img src="/uploaded/files/176/{{ $watch->images[0]->filename }}"></a></div>
+					<div class="wlimg"><a href="/{{Config::get('application.language')}}/watch/{{ $watch->id }}"><img src="/uploaded/files/201/{{ $watch->images[0]->filename }}"></a></div>
 					<div class="wlmain">
 						<div class="brandmodel"><strong>{{ $watch->brandname }}</strong> {{ $watch->modelname }}</div>
 						<div class="desc">{{ $watch->descriptions->{Config::get('application.language')} }}</div>
@@ -55,7 +55,13 @@ wishlist @stop
 							<button class="btn email"></button>
 						</div>
 					</div>
-					<div class="wlprice">{{ $watch->sellingprice }}€</div>
+					<div class="wlprice">
+						@if($watch->sellingprice)
+							{{ $watch->sellingprice }}€
+						@else
+							{{ Lang::get('home.CONTACT ME') }}
+						@endif
+						</div>
 					<div class="wlremove">
 						<a class="btn btn-transp btn-lg" href="/removefromwishlist/{{ $watch->id }}">
 							<span class="glyphicon glyphicon-remove"></span>
@@ -158,14 +164,14 @@ wishlist @stop
 			</div>
 			<div class="col-xs-3 upconditions">
 				<a href="#top" id="up"><h6><span class="glyphicon glyphicon-arrow-up"></span> {{ Lang::get('home.TOP') }}</h6></a>
-				<p><a href="#">{{ Lang::get('home.Terms & Conditions') }}</a></p>
+				<p><a href="#" class="conditions">{{ Lang::get('home.Terms & Conditions') }}</a></p>
 			</div>
 		</div>
 	</div>
 </section>
 @stop
 @section('modals')
-<div id="contactModal" class="modal fade">
+<div id="contactModal" class="modal fade" data-keyboard="true" role="dialog" aria-hidden="true" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="contact-top">
 			<div class="cleft"></div>
@@ -208,6 +214,22 @@ wishlist @stop
 						</div>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="conditionsModal" class="modal fade" data-keyboard="true" role="dialog" aria-hidden="true" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-top">
+			<div class="cleft"></div>
+			<div class="cmid"></div>
+			<div class="cright"></div>
+		</div>
+		<div class="modal-main">
+			<div class="wrapper">
+				<h4>{{ Lang::get('conditions.title') }}</h4>
+				<div class="hrsm"></div>
+				<div class="modal-body"></div>
 			</div>
 		</div>
 	</div>

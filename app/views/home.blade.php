@@ -4,7 +4,7 @@ home @stop
 @section('menu2')
 <div id="menu2">
 	<div class="container">
-		<div class="logo">SuperWatch</div>
+		<a href="#home" class="scrolllnk"><div class="logo">SuperWatch</div></a>
 		<ul class="mitems">
 			<li class="menulnk home"><a href="#home">{{Lang::get('home.HOME')}}</a></li>
 			<li class="menulnk watches"><a href="#watches">{{Lang::get('home.WATCHES')}}</a></li>
@@ -29,18 +29,15 @@ home @stop
 				<!-- <div class="col-xs-2 langs"> -->
 				<div class="col-xs-2">
 					{{ LaravelLocalization::getLanguageBar(true) }}
-<!-- 					<img id="markerlang" src="/img/markerlang.png" />
-					<span class="fr active">FR</span>
-					<span class="en">EN</span>
-					<div class="flags">
-						<a href="#"><img src="/img/icon_fr.png" /></a><a href="#"><img src="/img/icon_en.png" /></a>
-					</div>
- -->				</div>
+				</div>
 				<div class="col-xs-8 logo">
 					<img src="/img/sw-logo.png" />
 				</div>
 				<div class="col-xs-2 share">
 					<a href="#"><img src="/img/facebook.png" /></a><a href="#"><img src="/img/pinterest.png" /></a><a href="#"><img src="/img/email.png" /></a>
+					<div class="text">
+						{{ Lang::get('home.Help me help others') }}
+					</div>
 				</div>
 			</div>
 			<ul class="mitems">
@@ -79,7 +76,7 @@ home @stop
 							<div class="caro-inner" style="width: {{ $brands->count()*180 }}px">
 							@foreach ($brands as $brand)
 								@if ($brand->watches()->count())
-									<div class="single">
+									<div class="single" data-brand-id="{{ $brand->id }}" href="/{{Config::get('application.language')}}/brand/{{ $brand->id }}/{{ $brand->name }}">
 										<div class="wrapper"><img src="/img/logo-w/{{ $brand->logo }}" width="{{ $brand->width*0.7 }}" height="{{ $brand->height*0.7 }}"></div>
 										<div class="no">{{ $brand->watches()->count() }}</div>
 									</div>
@@ -116,14 +113,14 @@ home @stop
 				<input type="text" class="form-control watchsearch" placeholder="{{ Lang::get('home.Search for a Watch') }}" />
 				<h4>{{ Lang::get('home.Brands') }}</h4>
 				<ul>
-					<li class="active"><a href="/{{Config::get('application.language')}}/watch/all">{{ Lang::get('home.All') }}</a></li>
+					<li class="active"><a data-brand-id="all" href="/{{Config::get('application.language')}}/watch/all">{{ Lang::get('home.All') }}</a></li>
 					@foreach ($brands as $brand)
 						@if ($brand->watches()->count())
-							<li data-brand-id="{{ $brand->id }}"
+							<li
 								@if ($brand->name=="Others")
 									 class="others"
 								@endif
-							><a href="/{{Config::get('application.language')}}/brand/{{ $brand->id }}/{{ $brand->name }}">{{ $brand->name }} ({{ $brand->watches()->count() }})</a></li>
+							><a data-brand-id="{{ $brand->id }}" href="/{{Config::get('application.language')}}/brand/{{ $brand->id }}/{{ $brand->name }}">{{ $brand->name }} ({{ $brand->watches()->count() }})</a></li>
 						@endif
 					@endforeach
 				</ul>
@@ -255,7 +252,7 @@ home @stop
 						<label for="pictures" class="col-xs-4 control-label">{{ Lang::get('home.Pictures') }}</label>
 						<div class="col-xs-6">
 							<div class="pictures-selected">
-								<div class="info">Files selected:</div>
+								<div class="info">{{ Lang::get('home.Files selected:') }}</div>
 								<ul id="pictures-list"></ul>
 							</div>
 							<input class="form-control btn btn-primary" name="filesToUpload[]" id="filesToUpload" type="file" multiple="" />
@@ -344,21 +341,21 @@ home @stop
 			</div>
 			<div class="col-xs-3 upconditions">
 				<a href="#top" id="up"><h6><span class="glyphicon glyphicon-arrow-up"></span> {{ Lang::get('home.TOP') }}</h6></a>
-				<p><a href="#">{{ Lang::get('home.Terms & Conditions') }}</a></p>
+				<p><a href="#" class="conditions">{{ Lang::get('home.Terms & Conditions') }}</a></p>
 			</div>
 		</div>
 	</div>
 </section>
 @stop
 @section('modals')
-<div id="contactModal" class="modal fade">
+<div id="contactModal" class="modal fade" data-keyboard="true" role="dialog" aria-hidden="true" tabindex="-1">
 	<div class="modal-dialog">
-		<div class="contact-top">
+		<div class="modal-top">
 			<div class="cleft"></div>
 			<div class="cmid"></div>
 			<div class="cright"></div>
 		</div>
-		<div class="contact-main">
+		<div class="modal-main">
 			<div class="wrapper">
 				<h4>{{ Lang::get('home.CONTACT ME ABOUT THIS WATCH') }}</h4>
 				<div class="hrsm"></div>
@@ -394,6 +391,22 @@ home @stop
 						</div>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="conditionsModal" class="modal fade" data-keyboard="true" role="dialog" aria-hidden="true" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-top">
+			<div class="cleft"></div>
+			<div class="cmid"></div>
+			<div class="cright"></div>
+		</div>
+		<div class="modal-main">
+			<div class="wrapper">
+				<h4>{{ Lang::get('conditions.title') }}</h4>
+				<div class="hrsm"></div>
+				<div class="modal-body"></div>
 			</div>
 		</div>
 	</div>

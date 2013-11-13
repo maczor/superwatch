@@ -8,6 +8,8 @@ class HomeController extends BaseController {
 	 */
 	public function index()
 	{
+		if(!Session::get('watches_url')) Session::set('watches_url','/watch/all');
+		$url = Session::get('watches_url');
 		$brands = Brand::with(array('watches' => function($query){
 			$query->where('status_id', '=', '2');
 		}))->orderBy('name')->get();
@@ -18,12 +20,52 @@ class HomeController extends BaseController {
 		$bands = Band::all()->lists('name','id');
 		$buckles = Buckle::all()->lists('name','id');
 		$papers = Paper::all()->lists('name','id');
-		$watches = Watch::with(array('images' => function($query)
-		{
-		    $query->where('order', '=', '1');
-		}))
-		->where('status_id', '=', '2')
-		->orderBy('created_at')->paginate(8);
+
+		if($url=='/watch/all' || Input::get('watches')=='all') {
+			$watches = Watch::with(array('images' => function($query)
+			{
+			    $query->where('order', '=', '1');
+			}))
+			->where('status_id', '=', '2')
+			->orderBy('created_at')->paginate(8);
+			$watchesall = Watch::where('status_id', '=', '2')
+			->join('brands', 'brands.id', '=', 'watches.brand_id')
+			->join('models', 'models.id', '=', 'watches.model_id')
+			->select(
+				'watches.id',
+				'brands.name as brandname',
+				'models.name as modelname',
+				'watches.created_at')
+			->orderBy('created_at')
+			->get();
+			Session::set('watches_url', '/watch/all');
+			Session::set('watchesall', $watchesall);
+		} else {
+			$vars = explode('/', $url);
+			if($vars[1]=='brand') {
+				$brand_id = $vars[2];
+				$watches = Watch::with(array('images' => function($query)
+				{
+					$query->where('order', '=', '1');
+				}))
+				->where('status_id', '=', '2')
+				->where('brand_id', '=', $brand_id)
+				->orderBy('created_at')->paginate(8);
+				$watchesall = Watch::where('status_id', '=', '2')
+				->where('brand_id', '=', $brand_id)
+				->join('brands', 'brands.id', '=', 'watches.brand_id')
+				->join('models', 'models.id', '=', 'watches.model_id')
+				->select(
+					'watches.id',
+					'brands.name as brandname',
+					'models.name as modelname',
+					'watches.created_at')
+				->orderBy('created_at')
+				->get();
+				Session::set('watchesall', $watchesall);
+			}
+		}
+		if(!isset($brand_id)) $brand_id = 'all';
 		$data = array(
 			'watches' => $watches,
 			'brands' => $brands,
@@ -34,8 +76,8 @@ class HomeController extends BaseController {
 			'bands' => $bands,
 			'buckles' => $buckles,
 			'papers' => $papers,
+			'selected_brand' => $brand_id
 		);
-		// dd($brands);
 		return View::make('home', $data);
 	}
 
@@ -54,8 +96,8 @@ class HomeController extends BaseController {
 	public function sellmywatch()
 	{
 		// tmp lang
-		$thankyou = 'Thank you.<br>We will contact you soon.';
-		$error = 'Message was not send.<br> Please try again<br> or contact us via email.';
+		$thankyou = Lang::get('home.Thank you. I will contact you as soon as possible.');
+		$error = Lang::get('home.Message was not sent.');
 		$destinationPath = public_path().'/attachments/'.str_random(8);
 		$upload_success = true;
 		$hasFile = false;

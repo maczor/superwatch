@@ -121,7 +121,7 @@ addImagesToWatch = function(file) {
 updateWatchImagesView = function() {
 	if(App.data.images!=undefined) {
 		$('.images-container').html('');
-		console.log('this');
+		// console.log('this');
 		$.each(App.data.images, function() {
 			$this = $(this)[0];
 			$('.images-container').append('<div data-image-id="'+$this.id+'" data-image-order="'+$this.order+'"><img src="/uploaded/files/thumbnail/'+$this.filename+'" /> <button class="btn-xs btn-danger">Del <b class="glyphicon white glyphicon-remove"></b></button></div>')
@@ -139,7 +139,7 @@ setupSortable = function() {
 			url: '/images/reorder/'+$('input[name=watchid]').val(),
 			type: 'POST',
 			contentType: "application/json; charset=utf-8",
-			dataType: 'json',
+			// dataType: 'json',
 			data: JSON.stringify($order)
 		})
 		.done(function(){})
@@ -154,6 +154,19 @@ deleteImage = function(id) {
 		type: 'DELETE'})
 	.done(function(result) {
 		$('div[data-image-id='+id+']').remove();
+		$order = $('#images').find('div').attr("data-image-id");
+		console.log($order);
+		$.ajax({
+			url: '/images/reorder/'+$('input[name=watchid]').val(),
+			type: 'POST',
+			contentType: "application/json; charset=utf-8",
+			// dataType: 'json',
+			data: JSON.stringify($order)
+		})
+		.done(function(){})
+		.fail(function(){
+			console.log('error');
+		})
 	})
 	.fail(function() {
 		console.log('error');
@@ -177,7 +190,7 @@ $(document).ready(function(){
 		thdiv.addClass('thumb_prev');
 		thdiv.css('top', $top);
 		thdiv.css('left', $left);
-		thdiv.html('<img src="/uploaded/files/176/'+$t.attr('src').split('/')[6]+'">');
+		thdiv.html('<img src="/uploaded/files/thumbnail/'+$t.attr('src').split('/')[6]+'">');
 		$('body').append(thdiv);
 	}, function(){
 		$('.thumb_prev').remove();
@@ -210,7 +223,6 @@ $(document).ready(function(){
 			console.log("error");
 		})
 		.always(function() {
-			console.log("complete2");
 		});
 	});
 	setupSortable();

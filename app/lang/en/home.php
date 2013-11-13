@@ -2,6 +2,11 @@
 
 return array(
 
+'Thank you for subscribing.' => 'Thank you for subscribing.<br>You will receive an e-mail shortly.',
+'Files selected:' => 'Files selected:',
+'Thank you. I will contact you as soon as possible.' => 'Thank you.<br> I will contact you<br> as soon as possible.',
+'Message was not sent.' => 'Message was not sent.<br> Please try again.<br> Or contact us by e-mail or phone.',
+
 'CONTACT ME ABOUT THIS WATCH' => 'CONTACT ME ABOUT THIS WATCH',
 '0' => 'No',
 '1' => 'Yes',

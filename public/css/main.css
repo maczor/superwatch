@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500,900|Roboto+Condensed:300,400,700);
 
 body {
-	/*background: grey;*/
+	background: black;
 	color: white;
 }
 a {
@@ -144,18 +144,18 @@ a {
 	margin-top: 10%;
 	color: black;
 }
-.modal-dialog .contact-top {
+.modal-dialog .modal-top {
 	width: 100%;
 	overflow: hidden;
 }
-.modal-dialog .contact-top .cleft, .modal-dialog .contact-top .cright {
+.modal-dialog .modal-top .cleft, .modal-dialog .modal-top .cright {
 	width:280px;
     height: 16px;
     float:left;
     background: white;
     border-top: 16px solid white;
 }
-.modal-dialog .contact-top .cmid {
+.modal-dialog .modal-top .cmid {
 	width: 20px;
     height: 0px;
     float: left;
@@ -163,36 +163,114 @@ a {
     border-width: 16px 10px 0px 10px;
     border-color: transparent white transparent white;
 }
-.modal-dialog .contact-main {
+.modal-dialog .modal-main {
 	width: 100%;
 	min-height: 300px;
 	background: white;
 	border-right: solid 1px white;
 }
-.modal-dialog .contact-main .hrsm {
+.modal-dialog .modal-main h4 {
+	text-transform: uppercase;
+}
+.modal-dialog .modal-main .hrsm {
 	width: 40px;
 	height: 1px;
 	background: black;
 	margin: auto;
 }
-.modal-dialog .contact-main .wrapper {
+.modal-dialog .modal-main .wrapper {
 	margin: 0 30px;
 	padding: 10px;
 	text-align: center;
 }
-.modal-dialog .contact-main .wrapper #contact-watch {
+.modal-dialog .modal-main .wrapper #contact-watch {
 	margin-top: 10px;
 	text-align: left;
 }
-.modal-dialog .contact-main .wrapper #contact-watch textarea {
+.modal-dialog .modal-main .wrapper #contact-watch textarea {
 	height: 172px;
 }
-.modal-dialog .contact-main .wrapper #contact-watch .center {
+.modal-dialog .modal-main .wrapper #contact-watch .center {
 	text-align: center;
 }
-.modal-dialog .contact-main .wrapper #contact-watch button {
+.modal-dialog .modal-main .wrapper #contact-watch button {
 	padding-left: 40px;
 	padding-right: 40px;
+}
+#conditionsModal .wrapper {
+	margin: 0;
+}
+#conditionsModal .title {
+	text-align: left;
+	background: #226494;
+	color: white;
+	padding: 10px 16px;
+	margin: 12px 0;
+	cursor: pointer;
+	position: relative;
+}
+#conditionsModal .title .swicon-open {
+	width: 23px;
+	height: 23px;
+	position: absolute;
+	top: 8px;
+	right: 12px;
+	background: url('/img/arr-r-sm.png') 50% no-repeat;
+	-webkit-animation-name: turnback;
+    -webkit-animation-duration: 100ms;
+    -webkit-animation-timing-function: linear;
+    -webkit-transform: rotate(0deg);
+    -moz-animation-name: turnback;
+    -moz-animation-duration: 100ms;
+    -moz-animation-timing-function: linear;
+    -moz-transform: rotate(0deg);
+    -ms-animation-name: turnback;
+    -ms-animation-duration: 100ms;
+    -ms-animation-timing-function: linear;
+    transform: rotate(0deg);
+}
+@-moz-keyframes turn {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(90deg); }
+}
+@-webkit-keyframes turn {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(90deg); }
+}
+@keyframes turn {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(90deg);}
+}
+@-moz-keyframes turnback {
+    from { -moz-transform: rotate(90deg); }
+    to { -moz-transform: rotate(0deg); }
+}
+@-webkit-keyframes turnback {
+    from { -webkit-transform: rotate(90deg); }
+    to { -webkit-transform: rotate(0deg); }
+}
+@keyframes turnback {
+    from {transform:rotate(90deg);}
+    to {transform:rotate(0deg);}
+}
+#conditionsModal .title .swicon-open.open {
+	-webkit-animation-name: turn;
+    -webkit-animation-duration: 100ms;
+    -webkit-animation-timing-function: linear;
+    -webkit-transform: rotate(90deg);
+    -moz-animation-name: turn;
+    -moz-animation-duration: 100ms;
+    -moz-animation-timing-function: linear;
+    -moz-transform: rotate(90deg);
+    -ms-animation-name: turn;
+    -ms-animation-duration: 100ms;
+    -ms-animation-timing-function: linear;
+    transform: rotate(90deg);
+}
+#conditionsModal .text {
+	text-align: left;
+	display: none;
+	padding: 0 16px;
 }
 .container {
 	/*height: 79px;*/
@@ -379,8 +457,14 @@ ul.mitems li.wishlist a {
 	text-align: right;
 }
 #menu1 div.share img {
-	margin-top: 37px;
+	position: relative;
+	top: 47px;
 	margin-right: 10px;
+}
+#menu1 div.share div.text {
+	position: relative;
+	top: -12px;
+	text-align: center;
 }
 #menu1 ul.mitems {
 	float: left;
@@ -472,6 +556,10 @@ body.fr #menu1 ul.mitems li {
 .show section#watches .main_info {
 	margin-top: 100px;
 }
+.show section#watches .main_info a.back {
+	color: white;
+	margin-left: 31px;
+}
 .show section#watches .main_info .left {
 	width: 11px;
 	height: 60px;
@@ -522,6 +610,9 @@ body.fr #menu1 ul.mitems li {
 	background: url('/img/arr-r.png') 50% no-repeat;
 	background-size: 11px 38px;
 }
+.show section#watches .main_info .empty {
+	background: none;
+}
 .show section#watches .more_info {
 	position: absolute;
 	bottom: 16px;
@@ -565,6 +656,7 @@ body.fr #menu1 ul.mitems li {
 	height: 224px;
 	float: left;
 	margin-right: 8px;
+	background: white;
 }
 .show section#watches .watch .third {
 	width: 224px;
@@ -679,14 +771,14 @@ body.fr #menu1 ul.mitems li {
 	margin-bottom: 10px;
 }
 .wishlist .th.watches {
-	width: 634px;
+	width: 672px;
 }
 .wishlist .th.price {
-	width: 120px;
+	width: 96px;
 	text-align: center;
 }
 .wishlist .th.remove {
-	width: 85px;
+	width: 60px;
 	text-align: center;
 }
 .wishlist section#contact .newsletter {
@@ -694,6 +786,9 @@ body.fr #menu1 ul.mitems li {
 }
 .wishlist section#contact .frame {
 	background: url('../img/frame.png') 50% -120px no-repeat;
+}
+.wishlist section#watches .wlwrapper {
+	margin-top: 140px;
 }
 .wlwrapper {
 	width: 90%;
@@ -709,16 +804,16 @@ body.fr #menu1 ul.mitems li {
 .wlimg {
 	display: inline-block;
 	float: left;
-	width: 176px;
-	height: 176px;
+	width: 201px;
+	height: 201px;
 	margin-right: 18px;
 	position: relative;
-	top: 25px;
+	/*top: 25px;*/
 }
 .wlmain {
 	display: inline-block;
 	position: relative;
-	width: 440px;
+	width: 456px;
 	height: 100%;
 	color: black;
 }
@@ -742,12 +837,13 @@ body.fr #menu1 ul.mitems li {
 .wlprice {
 	display: inline-block;
 	color: black;
-	width: 120px;
+	width: 100px;
 	text-align: center;
 	font-size: 1.4em;
 	position: absolute;
-	top: 80px;
-	left: 634px;
+	top: 88px;
+	left: 674px;
+	line-height: 1em;
 }
 .wlremove {
 	display: inline-block;
@@ -858,17 +954,18 @@ section#home .welcome {
 section#home .welcome div.superw {
 	position: absolute;
 	left: 360px;
-	top: -110px;
+	top: -105px;
 	width: 78px;
 	height: 140px;
 	background: url('../img/sw.png') 50% no-repeat;
-	background-size: 78px 140px;
+	background-size: 68px 130px;
 }
 body.fr section#home .welcome div.superw {
 	left: 374px;
 }
 section#home .welcome h1 {
 	font-size: 0.9em;
+	font-family: "Roboto", sans-serif;
 	text-align: center;
 	font-weight: 300;
 	text-shadow: 1px 1px 2px #000;
@@ -927,6 +1024,7 @@ section#home .brands .brands_available .caro .single {
 	float: left;
 	width: 173px;
 	text-align: center;
+	cursor: pointer;
 }
 section#home .brands .brands_available .single .wrapper {
 	position: relative;
@@ -955,7 +1053,7 @@ section#home .brands .brands_available .single .no {
 section#watches {
 	width: 100%;
 	/*min-height: 1000px;*/
-	background: black url('../img/sky.png') 50% 0 no-repeat;
+	background: url('../img/sky.png') 50% 0 no-repeat;
 	background-size: cover;
 	position: relative;
 }
@@ -1217,6 +1315,7 @@ section#guaranty‎ .security {
 }
 section#philosophy {
 	color: black;
+	background: white;
 }
 section#philosophy .sw {
 	position: relative;
@@ -1229,6 +1328,7 @@ section#sell {
 	width: 100%;
 	min-height: 630px;
 	color: black;
+	background: white;
 }
 section#sell form#watch-submit label {
 	color: #226494;
@@ -1316,6 +1416,7 @@ section#sell form#watch-submit #sell-info {
 section#brands {
 	width: 100%;
 	min-height: 350px;
+	background: white;
 }
 section#brands .single {
 	width: 14.28%;
@@ -1339,7 +1440,7 @@ section#contact {
 	min-height: 760px;
 /*	background: url('../img/space.png') 50% 0 no-repeat;
 	background-size: cover;
-*/background: url('../img/space.png') 50% 100% no-repeat;
+*/background: white url('../img/space.png') 50% 100% no-repeat;
 	background-size: 100%;}
 section#contact .container {
 	position: relative;

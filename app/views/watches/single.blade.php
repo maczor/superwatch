@@ -1,7 +1,7 @@
 @foreach($watches as $watch)
 <div class="sw">
 	<div class="img">
-		<div class="details" data-watch-id="{{$watch->id}}" data-watch-name="{{AppHelper::url_slug($brandslist[$watch->brand_id].' '.$modelslist[$watch->model_id])}}">
+		<div class="details" data-watch-id="{{$watch->id}}" data-watch-name="{{AppHelper::url_slug($brandslist[$watch->brand_id].' '.$modelslist[$watch->model_id])}}" data-collection-order="">
 			<div class="bg"></div>
 			<div class="wrapper">
 				<div class="share">
@@ -19,7 +19,9 @@
 				<strong>{{ Lang::get('home.Original box') }} :</strong> {{ Lang::get('home.'.$watch->box) }}
 				<div class="contact">
 					<button class="btn btn-xs btn-black contactaboutwatch" data-watch-ref="{{$watch->reference}}" data-watch-brand="{{$brandslist[$watch->brand_id]}}" data-watch-model="{{$modelslist[$watch->model_id]}}"><span class="wsicon wsicon-eclair-w"></span> CONTACT</button>
-					<button class="btn btn-xs btn-transp addtowishlist" data-watch-id="{{$watch->id}}"><span class="wsicon wsicon-plus-b"></span> ADD TO WISHLIST</button>
+					@if(array_search($watch->id, Session::get('wishlist'))===false)
+						<button class="btn btn-xs btn-transp addtowishlist" data-watch-id="{{$watch->id}}"><span class="wsicon wsicon-plus-b"></span> ADD TO WISHLIST</button>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -63,6 +65,7 @@ if (window.jQuery) {
 	App.Vars.Pcurrent = {{ $watches->getCurrentPage() }};
 	App.Vars.Ptotal = {{ $watches->getLastPage() }};
 	$.setupPlinks();
+	$.setWatchesList('{{ $selected_brand }}');
 };
 </script>
 @section('javascript')
@@ -70,5 +73,6 @@ $(document).ready(function($) {
 	App.Vars.Pcurrent = {{ $watches->getCurrentPage() }};
 	App.Vars.Ptotal = {{ $watches->getLastPage() }};
 	$.setupPlinks();
+	$.setWatchesList('{{ $selected_brand }}');
 });
 @stop

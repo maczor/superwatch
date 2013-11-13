@@ -93,13 +93,13 @@ class UploadHandler
             'image_versions' => array(
                 // Uncomment the following version to restrict the size of
                 // uploaded images:
-                /*
+                
                 '' => array(
-                    'max_width' => 1920,
-                    'max_height' => 1200,
-                    'jpeg_quality' => 95
+                    'max_width' => 480,
+                    'max_height' => 480,
+                    'jpeg_quality' => 90
                 ),
-                */
+                
                 // Uncomment the following to create medium sized images:
                 /*
                 'medium' => array(
@@ -114,10 +114,10 @@ class UploadHandler
                     'max_height' => 60,
                     'jpeg_quality' => 60
                 ),
-                '176' => array(
+                '201' => array(
                     'crop' => true,
-                    'max_width' => 176,
-                    'max_height' => 176,
+                    'max_width' => 201,
+                    'max_height' => 201,
                     'jpeg_quality' => 70
                 ),
                 '235' => array(

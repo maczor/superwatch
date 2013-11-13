@@ -13,6 +13,7 @@
 
 Route::group(array('prefix' => LaravelLocalization::setLanguage()), function() {
 	Route::get('/', array('as'=>'home', 'uses'=>'HomeController@index'));
+	Route::get('/back', array('as'=>'backhome', 'uses'=>'HomeController@backhome'));
 	Route::post('/sellmywatch', 'HomeController@sellmywatch');
 	Route::get('/brand/{brand_id}/{name}', 'WatchesController@watchesInBrand');
 	Route::get('/watch/all', 'WatchesController@allWatches');
@@ -24,6 +25,7 @@ Route::group(array('prefix' => LaravelLocalization::setLanguage()), function() {
 	Route::get('/searchbrandmodel/{str}', 'WatchesController@searchBrandModel');
 	Route::get('/addtowishlist/{str}', 'WatchesController@addToWishlist');
 	Route::get('/removefromwishlist/{str}', 'WatchesController@removeFromWishlist');
+	Route::get('/conditions', array(function(){return View::make('conditions');}));
 	Route::get('/wishlist', array('as'=>'wishlist', 'uses'=>'WatchesController@showWishlist'));
 
 	Route::get('/404', array('as'=>'404', function(){
@@ -43,6 +45,10 @@ Route::group(array('prefix' => LaravelLocalization::setLanguage()), function() {
 		Mail::send('emails.newsletter', $data, function($message)
 		{
 		    $message->to('maczor@maczor.com', 'ME')->subject('Newsletter subscription');
+		});
+		Mail::send('emails.thankyou_news', $data, function($message) use ($data)
+		{
+		    $message->to($data['email'])->subject(Lang::get('emails.SuperWatch Newsletter subscription confirmation'));
 		});
 	});
 	Route::post('/email/aboutwatch', function(){

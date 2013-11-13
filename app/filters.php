@@ -13,6 +13,8 @@
 
 App::before(function($request)
 {
+	// setup session
+	if(!Session::get('wishlist')) Session::set('wishlist',array());
 	// dd(substr(Request::path(), 3));
 	$notLangRoutes = array(
 		'email', 'login', 'jupload', 'watches', 'images', 'models', 'brands', 'searchbrand', 'searchmodel', 'searchbrandmodel', 'addtowishlist', 'sellmywatch'
@@ -26,7 +28,7 @@ App::before(function($request)
 
 App::after(function($request, $response)
 {
-	//
+	// print_r(Session::all());
 });
 
 /*

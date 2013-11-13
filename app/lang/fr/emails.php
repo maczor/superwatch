@@ -8,5 +8,10 @@ return array(
 'Your devoted' => 'Votre dévoué',
 'By appointment only' => 'Sur rdv. uniquement',
 'Your request to SuperWatch' => 'Votre demande auprès de SuperWatch'
+// newsletter
+'SuperWatch Newsletter subscription confirmation' => 'Confirmation d\'inscription à la Newsletter SuperWatch',
+'Hi, Thank you Newsletter' => '<p>Bonjour,</p>
+<p>Merci de vous être inscrit à ma Newsletter.
+Maintenant, vous serez parmi les premiers à être au courant de mes dernières arrivées !</p>',
 
 );

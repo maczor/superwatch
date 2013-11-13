@@ -8,13 +8,13 @@ show @stop
 <section id="watches">
 	<div id="menu2">
 		<div class="container">
-			<div class="logo">SuperWatch</div>
+			<a href="#home" class="scrolllnk"><div class="logo">SuperWatch</div></a>
 			<ul class="mitems">
-				<li class="menulnk home"><a href="/{{ Session::get('language') }}/##home">{{Lang::get('home.HOME')}}</a></li>
-				<li class="menulnk watches"><a href="/{{ Session::get('language') }}/##watches">{{Lang::get('home.WATCHES')}}</a></li>
+				<li class="menulnk home"><a href="/{{ Session::get('language') }}/?section=home">{{Lang::get('home.HOME')}}</a></li>
+				<li class="menulnk watches"><a href="/{{ Session::get('language') }}/?watches=all">{{Lang::get('home.WATCHES')}}</a></li>
 				<li class="menulnk guaranty‎"><a href="#guaranty‎">{{Lang::get('home.GUARANTEE')}}</a></li>
-				<li class="menulnk philosophy"><a href="/{{ Session::get('language') }}/##philosophy">{{Lang::get('home.PHILOSOPHY')}}</a></li>
-				<li class="menulnk sell"><a href="/{{ Session::get('language') }}/##sell">{{Lang::get('home.SELL MY WATCH')}}</a></li>
+				<li class="menulnk philosophy"><a href="/{{ Session::get('language') }}/?section=philosophy">{{Lang::get('home.PHILOSOPHY')}}</a></li>
+				<li class="menulnk sell"><a href="/{{ Session::get('language') }}/?section=sell">{{Lang::get('home.SELL MY WATCH')}}</a></li>
 				<li class="menulnk contact"><a href="#contact">{{Lang::get('home.CONTACT')}}</a></li>
 				<li class="wishlist"><a href="/{{ Config::get('application.language') }}/wishlist"><span class="wsicon wsicon-plus"></span> {{Lang::get('home.MY WISHLIST')}} 
 				<span class="wishnum">@if(count(Session::get('wishlist'))) ({{count(Session::get('wishlist'))}}) @else (0) @endif</span></a></li>
@@ -25,7 +25,14 @@ show @stop
 	</div>
 	<div class="container">
 		<div class="row main_info">
-			<div class="left"></div>
+			<p><a href="/{{ Session::get('language') }}/?watches=go" class="back">BACK</a></p>
+			@if($current>0)
+				<a href="
+				/{{ Session::get('language') }}/watch/{{ Session::get('watchesall')[$current-1]->id }}?{{ AppHelper::url_slug(Session::get('watchesall')[$current-1]->brandname) }}-{{ AppHelper::url_slug(Session::get('watchesall')[$current-1]->modelname) }}
+				"><div class="left"></div></a>
+			@else
+				<div class="left empty"></div>
+			@endif
 			<div class="brandname">
 				<div class="brand">{{ $brandslist[$watch->brand_id] }}</div>
 				<div class="name">{{ $modelslist[$watch->model_id] }}</div>
@@ -41,15 +48,26 @@ show @stop
 				</div>
 				<div class="addtowishlist" data-watch-id="{{ $watch->id }}">+ {{ Lang::get('home.ADD TO WISHLIST') }}</div>
 			</div>
-			<div class="right"></div>
+			@if($current<count(Session::get('watchesall'))-1)
+				<a href="
+				/{{ Session::get('language') }}/watch/{{ Session::get('watchesall')[$current+1]->id }}?{{ AppHelper::url_slug(Session::get('watchesall')[$current+1]->brandname) }}-{{ AppHelper::url_slug(Session::get('watchesall')[$current+1]->modelname) }}
+				"><div class="right"></div></a>
+			@else
+				<div class="right empty"></div>
+			@endif
 		</div>
 		<div class="row watch">
 			<div class="first showprev" data-index="0">
 				<img src="/uploaded/files/{{ $watch->images[0]->filename }}" width="456" height="456" />
 			</div>
+			@if (isset($watch->images[1]))
 			<div class="second showprev" data-index="1">
-				<img src="/uploaded/files/235/{{ $watch->images[1]->filename }}" width="224" height="224" />
+					<img src="/uploaded/files/235/{{ $watch->images[1]->filename }}" width="224" height="224" />
 			</div>
+			@else
+			<div class="second" data-index="1">
+			</div>
+			@endif
 			<div class="third">
 				<strong>{{ Lang::get('home.Movement') }} :</strong> {{ $movements[$watch->movement_id] }}<br />
 				<strong>{{ Lang::get('home.Case') }} :</strong> {{ $caseboxes[$watch->casebox_id] }}<br />
@@ -84,7 +102,7 @@ show @stop
 							</div>
 							<div class="contact-main">
 								<div class="wrapper">
-									<span class="wsicon wsicon-eclair-w"></span>
+									<!-- <span class="wsicon wsicon-eclair-w"></span> -->
 									{{ Lang::get('home.CONTACT ME ABOUT THIS WATCH') }}
 								</div>
 							</div>
@@ -201,7 +219,7 @@ show @stop
 			</div>
 			<div class="col-xs-3 upconditions">
 				<a href="#top" id="up"><h6><span class="glyphicon glyphicon-arrow-up"></span> {{ Lang::get('home.TOP') }}</h6></a>
-				<p><a href="#">{{ Lang::get('home.Terms & Conditions') }}</a></p>
+				<p><a href="#" class="conditions">{{ Lang::get('home.Terms & Conditions') }}</a></p>
 			</div>
 		</div>
 	</div>
@@ -259,6 +277,22 @@ show @stop
 						</div>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="conditionsModal" class="modal fade" data-keyboard="true" role="dialog" aria-hidden="true" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-top">
+			<div class="cleft"></div>
+			<div class="cmid"></div>
+			<div class="cright"></div>
+		</div>
+		<div class="modal-main">
+			<div class="wrapper">
+				<h4>{{ Lang::get('conditions.title') }}</h4>
+				<div class="hrsm"></div>
+				<div class="modal-body"></div>
 			</div>
 		</div>
 	</div>
