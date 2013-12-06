@@ -21,6 +21,8 @@ home @stop
 </div>
 @stop
 @section('content')
+<div id="topbg2"></div>
+<div id="topbg"></div>
 <section id="home">
 	<div id="menu1">
 		<div class="divider"></div>
@@ -98,14 +100,13 @@ home @stop
 				<h3 class="white"><span class="hr"></span>{{ Lang::get('home.THE SUPER COLLECTION') }}<span class="hr"></span></h3>
 			</div>
 			<div class="col-xs-2">
-				<!-- <select class="recent selectpicker" data-width="100%" data-style="btn-xs btn-transp-w">
-					<option>Les Plus Récentes</option>
-					<option>Breitoptionng</option>
-					<option>Cartier</option>
-					<option>Chopard</option>
-					<option>Hublot</option>
-					<option>IWC</option>
-				</select> -->
+				<select id="orderby_dir" name="orderby_dir" class="orderby selectpicker" data-width="100%" data-style="btn-xs btn-transp-w">
+					<option value="created_at-desc" selected="selected">most recent</option>
+					<option value="sellingprice-asc">price - low to high</option>
+					<option value="sellingprice-desc">price - high to low</option>
+					<option value="modelname-asc">A-Z</option>
+					<option value="modelname-desc">Z-A</option>
+				</select>
 			</div>
 		</div>
 		<div class="row">
@@ -113,14 +114,14 @@ home @stop
 				<input type="text" class="form-control watchsearch" placeholder="{{ Lang::get('home.Search for a Watch') }}" />
 				<h4>{{ Lang::get('home.Brands') }}</h4>
 				<ul>
-					<li class="active"><a data-brand-id="all" href="/{{Config::get('application.language')}}/watch/all">{{ Lang::get('home.All') }}</a></li>
+					<li class="active"><a data-brand-id="all" href="/{{Config::get('application.language')}}/getwatches/all">{{ Lang::get('home.All') }}</a></li>
 					@foreach ($brands as $brand)
 						@if ($brand->watches()->count())
 							<li
 								@if ($brand->name=="Others")
 									 class="others"
 								@endif
-							><a data-brand-id="{{ $brand->id }}" href="/{{Config::get('application.language')}}/brand/{{ $brand->id }}/{{ $brand->name }}">{{ $brand->name }} ({{ $brand->watches()->count() }})</a></li>
+							><a data-brand-id="{{ $brand->id }}" href="/{{Config::get('application.language')}}/getwatches/{{ $brand->id }}/{{ $brand->name }}">{{ $brand->name }} ({{ $brand->watches()->count() }})</a></li>
 						@endif
 					@endforeach
 				</ul>
@@ -136,7 +137,6 @@ home @stop
 					<li id="prev"><a href="prev">« Previous</a></li>
 					<li id="next"><a href="next">Next »</a></li>
 				</ul>
-				<!-- <burron type="button" class="btn btn-default btn-lg">{{ Lang::get('home.VIEW MORE WATCHES') }}</burron> -->
 			</div>
 		</div>
 	</div>
@@ -285,7 +285,11 @@ home @stop
 				<h3 class="black"><span class="hr"></span>{{ Lang::get('home.THE BRANDS') }}<span class="hr"></span></h3>
 				<div class="row">
 					@foreach ($brands as $brand)
-						<div class="single">
+						<div class="single
+						@if ($brand->watches()->count()>0)
+						 lnk 
+						@endif
+						" data-count="{{ $brand->watches()->count() }}" data-brand-id="{{ $brand->id }}" href="/{{Config::get('application.language')}}/brand/{{ $brand->id }}/{{ $brand->name }}">
 							<img src="/img/logo-b/{{ $brand->logo }}" width="{{ $brand->width*0.5 }}" height="{{ $brand->height*0.5 }}">
 							<div class="no">{{ $brand->watches()->count() }}</div>
 						</div>
@@ -346,6 +350,8 @@ home @stop
 		</div>
 	</div>
 </section>
+<div id="bottombg"></div>
+<div id="bottombg2"></div>
 @stop
 @section('modals')
 <div id="contactModal" class="modal fade" data-keyboard="true" role="dialog" aria-hidden="true" tabindex="-1">

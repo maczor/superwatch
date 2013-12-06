@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('javascript')
 App.Options.section = 'watches';
+$.setWatchesList();
 @stop
 @section('pageclass')
 show @stop
@@ -136,6 +137,16 @@ show @stop
 					<img src="/uploaded/files/{{ $watch->images[4]->filename }}" width="456" height="456" />
 				</div>
 			@endif
+			@if (isset($watch->images[6]))
+				<div class="ninth showprev" data-index="6">
+					<img src="/uploaded/files/235/{{ $watch->images[6]->filename }}" width="224" height="224" />
+				</div>
+			@endif
+			@if (isset($watch->images[7]))
+				<div class="tenth showprev" data-index="7">
+					<img src="/uploaded/files/235/{{ $watch->images[7]->filename }}" width="224" height="224" />
+				</div>
+			@endif
 		</div>
 	</div>
 </section>
@@ -224,24 +235,28 @@ show @stop
 		</div>
 	</div>
 </section>
+<div id="bottombg"></div>
+<div id="bottombg2"></div>
 @stop
 @section('modals')
 <div id="lightboxModal" class="modal fade" data-keyboard="true" role="dialog" aria-hidden="true" tabindex="-1">
 	<div class="prevclose"></div>
 	<div class="modal-dialog">
-		@foreach ($watch->images as $image)
-			<div class="preview"><img src="/uploaded/files/{{ $image->filename }}"></div>
-		@endforeach
+		<div class="lightboxWrapper">
+			@foreach ($watch->images as $image)
+				<div class="preview"><img src="/uploaded/files/{{ $image->filename }}"></div>
+			@endforeach
+		</div>
 	</div>
 </div>
 <div id="contactModal" class="modal fade" data-keyboard="true" role="dialog" aria-hidden="true" tabindex="-1">
 	<div class="modal-dialog">
-		<div class="contact-top">
+		<div class="modal-top">
 			<div class="cleft"></div>
 			<div class="cmid"></div>
 			<div class="cright"></div>
 		</div>
-		<div class="contact-main">
+		<div class="modal-main">
 			<div class="wrapper">
 				<h4>{{ Lang::get('home.CONTACT ME ABOUT THIS WATCH') }}</h4>
 				<div class="hrsm"></div>
@@ -297,4 +312,7 @@ show @stop
 		</div>
 	</div>
 </div>
+<section id="debug">
+	{{ Session::get("kind_input")["brand_id"] }}
+</section>
 @stop

@@ -11,7 +11,7 @@
 	App.Vars.currentitem = 0;
 	App.Vars.i; // preview current item
 	App.Vars.t; // preview total items
-	App.Vars.Phref = 'watch/all'; // currect watches shown without paging
+	App.Vars.Phref = 'getwatches?kind=all'; // all watches shown without paging
 	App.found = {};
 	App.found.brand = {};
 	App.found.model = {};
@@ -112,7 +112,8 @@ $.resizeFunc = function () {
 	$height = 799;
 	$winWidth = $(window).width();
 	$newheight = $height*$winWidth/$width;
-	$('section#home').height($newheight);
+	$('div#topbg').height($newheight);
+	$('div#topbg2').height($newheight);
 	$.setSection();
 }
 $.setWatchesList = function(id) {
@@ -131,7 +132,6 @@ $.setWatchesList = function(id) {
 	});
 	// show watch
 	$('section#watches .details').on('click', function(event) {
-		// console.log('this');
 		event.preventDefault();
 		$id = $(this).data('watch-id');
 		$name = $(this).data('watch-name');
@@ -139,7 +139,7 @@ $.setWatchesList = function(id) {
 		window.location = pathname+'/watch/'+$id+'?'+$name;
 	});
 	// contact for watch
-	$('button.contactaboutwatch, .home .btncontact, .show .btncontact').on('click', function(event) {
+	$('button.contactaboutwatch, .home .btncontact, .show .btncontact, .wishlist .btncontact').on('click', function(event) {
 		event.preventDefault();
 		event.stopPropagation();
 		$ref = $(this).data('watch-ref');
@@ -187,8 +187,14 @@ $.setresultEvents = function() {
 		$t = $(this);
 		$('#result').remove();
 		if($t.data('found')=='brand') {
-			$.loadBrand($t.data('brand-id'),'/brand/'+$t.data('brand-id')+'/'+$t.data('brandname'));
+			$.loadBrand($t.data('brand-id'),'/getwatches/'+$t.data('brand-id')+'/'+$t.data('brandname'));
 		}
+	});
+}
+$.setorderEvents = function() {
+	$('#orderby_dir').on('change', function(event) {
+		event.preventDefault();
+		$.loadBrand(false,'/getwatches?orderby_dir='+$('#orderby_dir').selectpicker('val'));
 	});
 }
 $.Next = function() {
@@ -333,15 +339,21 @@ $.loadBrand = function(id,href) {
 		$.moveM1pos();
 		$.moveM2pos();
 	});
-	App.Vars.Phref = href;
-	$.get(href, function(data) {
+	if(id) {
+		App.Vars.Phref = href+'?brand_id='+id;
+		if(id=='all') App.Vars.Phref += '&kind=all'; else App.Vars.Phref += '&kind=brand';
+	} else App.Vars.Phref = href;
+	console.log(App.Vars.Phref);
+	$.get(App.Vars.Phref, function(data) {
 		$('section#watches .watchlist').hide().html(data).fadeIn('slow');
 	})
 	.done(function(){
-		$.setWatchesList(id);
+		if(id) $.setWatchesList(id);
 	});
 }
 jQuery(document).ready(function($) {
+	// setup order
+	$.setorderEvents();
 	// show preview
 	$('.showprev').on('click', function(event) {
 		event.preventDefault();
@@ -470,12 +482,13 @@ jQuery(document).ready(function($) {
 		}
 	});
 	// show brand
-	$('section#watches .brands a, .brands_available .single').on('click', function(event) {
+	$('section#watches .brands a, .brands_available .single, section#brands .single').on('click', function(event) {
 		$t = $(this);
 		$id = $t.data('brand-id');
+		$count = $t.data('count');
 		$href=$(this).attr('href');
 		event.preventDefault();
-		$.loadBrand($id,$href);
+		if($count===undefined || $count>0) $.loadBrand($id,$href);
 	});
 	// pagination on page
 	$('.pager a').on('click', function(event) {
@@ -492,7 +505,8 @@ jQuery(document).ready(function($) {
 			} else {
 				page = parseInt(App.Vars.Pcurrent-1);
 			}
-			$href = App.Vars.Phref+'?page='+page;
+			$href = App.Vars.Phref+'&page='+page;
+			console.log($href);
 			$.get($href, function(data) {
 				$('section#watches .watchlist').hide().html(data).fadeIn('slow');
 			})
@@ -582,6 +596,7 @@ jQuery(document).ready(function($) {
 	$('#menu1').scrollSpy();
 	$(window).scroll(function(){
 		$.setSection();
+		$('div#topbg2').css('background-position', "50% "+(328-$('body').scrollTop()*2)+"px");
 	});
 	// select
 	$('.selectpicker').selectpicker();

@@ -17,7 +17,7 @@ App::before(function($request)
 	if(!Session::get('wishlist')) Session::set('wishlist',array());
 	// dd(substr(Request::path(), 3));
 	$notLangRoutes = array(
-		'email', 'login', 'jupload', 'watches', 'images', 'models', 'brands', 'searchbrand', 'searchmodel', 'searchbrandmodel', 'addtowishlist', 'sellmywatch'
+		'email', 'login', 'jupload', 'watches', 'images', 'models', 'brands', 'searchbrand', 'searchmodel', 'searchbrandmodel', 'addtowishlist', 'sellmywatch', 'adminsearch', 'fullsearch'
 	);
 	if ( !in_array(Request::segment(1), Config::get('app.languages')) && !in_array(Request::segment(1), $notLangRoutes) ) {
 	// dd(Request::server('HTTP_HOST').'/'.Config::get('application.language').Request::server('REQUEST_URI'));

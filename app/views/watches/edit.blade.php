@@ -35,18 +35,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				{{ Form::label('status' ,'<!--:en-->STATUS<!--:fr-->STATUT', ['id'=>'status_label', 'class'=>'langspl col-md-4 control-label']) }}
-				<div class="col-md-6">
-					{{ Form::select('status_id', $status, $watch->status_id, ['id'=>'status_id', 'data-style'=>'btn-'.$watch->status_id, 'data-width'=>'100%', 'class'=>'sel_status_edit']) }}
-				</div>
-			</div>
-			<div class="form-group">
-				{{ Form::label('payment' ,'<!--:en-->PAYMENT<!--:fr-->PAIEMENT', ['id'=>'payment_label', 'class'=>'langspl col-md-4 control-label']) }}
-				<div class="col-md-6">
-					{{ Form::select('payment_id', $payment, $watch->payment_id, ['id'=>'payment_id', 'data-width'=>'100%', 'class'=>'selectpicker']) }}
-				</div>
-			</div>
-			<div class="form-group">
 				{{ Form::label('year', '<!--:en-->Year<!--:fr-->ANNÉE', ['id'=>'year_label', 'class'=>'langspl col-md-4 control-label']) }}
 				<div class="col-md-6">
 					{{ Form::text('year', $watch->year, ['class'=>'form-control']) }}
@@ -68,18 +56,6 @@
 				{{ Form::label('buyingprice', '<!--:en-->BUYING PRICE<!--:fr-->PRIX D’ACHAT', ['id'=>'buyingprice_label', 'class'=>'langspl col-md-4 control-label']) }}
 				<div class="col-md-6">
 					{{ Form::text('buyingprice', $watch->buyingprice, ['class'=>'form-control']) }}
-				</div>
-			</div>
-			<div class="form-group">
-				{{ Form::label('entrydate', '<!--:en-->ENTRY DATE<!--:fr-->DATE D’ENTRÉE', ['id'=>'entrydate_label', 'class'=>'langspl col-md-4 control-label']) }}
-				<div class="col-md-6">
-					{{ Form::text('entrydate', $watch->created_at, ['class'=>'form-control', 'disabled']) }}
-				</div>
-			</div>
-			<div class="form-group">
-				{{ Form::label('sellingdate', '<!--:en-->SELLING DATE<!--:fr-->DATE DE SORTIE', ['id'=>'sellingdate_label', 'class'=>'langspl col-md-4 control-label']) }}
-				<div class="col-md-6">
-					{{ Form::text('sellingdate', $watch->sellingdate, ['class'=>'form-control', 'readonly']) }}
 				</div>
 			</div>
 			<div class="form-group">
@@ -150,22 +126,60 @@
 			</div>
 			<div class="form-group">
 				<div class="col-md-offset-4 col-md-6">
-					<button type="submit" class="btn btn-primary">Save <b class="glyphicon white glyphicon-hdd"></b></button>
+					<button type="submit" class="btn btn-primary btn-lg">Save <b class="glyphicon white glyphicon-hdd"></b></button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-offset-1 col-md-5">
-		<button id="addImages" class="btn btn-success">Add images <b class="glyphicon white glyphicon-plus"></b></button>
-		<div id="images" class="images-container">
-		@foreach ($images as $image)
-			<div data-image-id="{{ $image->id }}" data-image-order="{{ $image->order }}">
-				<img src="/uploaded/files/thumbnail/
-				{{ $image->filename }}
-				" />
-				<button class="btn-xs btn-danger">Del <b class="glyphicon white glyphicon-remove"></b></button>
+	<div class="col-md-6">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-md-offset-3 col-md-6">
+					<button type="submit" class="btn btn-primary btn-lg">Save <b class="glyphicon white glyphicon-hdd"></b></button>
+				</div>
 			</div>
-		@endforeach
+			<div class="form-group">
+				{{ Form::label('status' ,'<!--:en-->STATUS<!--:fr-->STATUT', ['id'=>'status_label', 'class'=>'langspl col-md-3 control-label']) }}
+				<div class="col-md-6">
+					{{ Form::select('status_id', $status, $watch->status_id, ['id'=>'status_id', 'data-style'=>'btn-'.$watch->status_id, 'data-width'=>'100%', 'class'=>'sel_status_edit']) }}
+				</div>
+			</div>
+			<div class="form-group">
+				{{ Form::label('payment' ,'<!--:en-->PAYMENT<!--:fr-->PAIEMENT', ['id'=>'payment_label', 'class'=>'langspl col-md-3 control-label']) }}
+				<div class="col-md-6">
+					{{ Form::select('payment_id', $payment, $watch->payment_id, ['id'=>'payment_id', 'data-width'=>'100%', 'class'=>'selectpicker']) }}
+				</div>
+			</div>
+			<div class="form-group">
+				{{ Form::label('entrydate', '<!--:en-->ENTRY DATE<!--:fr-->DATE D’ENTRÉE', ['id'=>'entrydate_label', 'class'=>'langspl col-md-3 control-label']) }}
+				<div class="col-md-6">
+					{{ Form::text('entrydate', $watch->created_at, ['class'=>'form-control', 'disabled']) }}
+				</div>
+			</div>
+			<div class="form-group">
+				{{ Form::label('sellingdate', '<!--:en-->SELLING DATE<!--:fr-->DATE DE SORTIE', ['id'=>'sellingdate_label', 'class'=>'langspl col-md-3 control-label']) }}
+				<div class="col-md-6">
+					{{ Form::text('sellingdate', $watch->sellingdate, ['class'=>'form-control', 'readonly']) }}
+				</div>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-md-offset-3 col-md-6">
+				<button id="addImages" class="btn btn-success btn-lg">Add images <b class="glyphicon white glyphicon-plus"></b></button>
+				<div id="images" class="images-container">
+				@foreach ($images as $image)
+					<div data-image-id="{{ $image->id }}" data-image-order="{{ $image->order }}">
+						<img src="/uploaded/files/thumbnail/
+						{{ $image->filename }}
+						" />
+						<button class="btn-xs btn-danger">Del <b class="glyphicon white glyphicon-remove"></b></button>
+					</div>
+				@endforeach
+				</div>
+			</div>
+			</div>
 		</div>
 	</div>
 	{{ Form::close() }}

@@ -81,4 +81,6 @@ missing @stop
 		</div>
 	</div>
 </section>
+<div id="bottombg"></div>
+<div id="bottombg2"></div>
 @stop

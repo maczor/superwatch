@@ -42,7 +42,7 @@ class ModelsController extends BaseController {
 				'new_model_id' => $model->id,
 				'model' => $allmodels
 			);
-			return View::make('models.select', $data);
+			return View::make('models/select', $data);
 		}
 	}
 

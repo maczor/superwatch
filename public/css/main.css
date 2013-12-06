@@ -3,6 +3,7 @@
 body {
 	background: black;
 	color: white;
+	position: relative;
 }
 a {
 	color: #226494;
@@ -66,7 +67,15 @@ a {
 	-ms-perspective-origin: 50% 240px;
 	perspective: 900px;
 	perspective-origin: 50% 240px;
-	margin-top: 3%;
+	margin-top: 0;
+	height: 100%;
+}
+#lightboxModal .modal-dialog .lightboxWrapper {
+	height: 500px;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
 }
 #lightboxModal .preview {
 	left: 210px;
@@ -137,7 +146,7 @@ a {
 	cursor: pointer;
 }
 .show .newsletter .input-group-addon.input-sm {
-	height: 29px;
+	height: 30px !important;
 }
 /* modal contact */
 .modal-dialog {
@@ -462,9 +471,13 @@ ul.mitems li.wishlist a {
 	margin-right: 10px;
 }
 #menu1 div.share div.text {
+	font-size: 13px;
 	position: relative;
 	top: -12px;
 	text-align: center;
+	white-space: nowrap;
+	left: 50%;
+	margin-left: -100%;
 }
 #menu1 ul.mitems {
 	float: left;
@@ -680,12 +693,18 @@ body.fr #menu1 ul.mitems li {
 	color: black;
 	padding: 16px;
 }
-.show section#watches .watch .fifth, .show section#watches .watch .sixth {
+.show section#watches .watch .fifth, .show section#watches .watch .sixth, .show section#watches .watch .ninth, .show section#watches .watch .tenth {
 	width: 224px;
 	height: 224px;
 	float: left;
 	margin-top: 8px;
 	margin-right: 8px;
+}
+.show section#watches .watch .ninth, .show section#watches .watch .tenth {
+	float: right;
+	position: relative;
+	left: 8px;
+	top: -232px;
 }
 .show section#watches .watch .spacer {
 	width: 456px;
@@ -762,6 +781,10 @@ body.fr #menu1 ul.mitems li {
 	background: black url('../img/email-w.png') 50% no-repeat;
 }
 /* wishlist */
+.wishlist section#watches {
+	background: black url('../img/sky2.png') 50% 0 no-repeat;
+	background-size: cover;
+}
 .wishlist section#watches #menu2 {
 	visibility: visible;
 }
@@ -940,12 +963,48 @@ body.fr #menu1 ul.mitems li {
 .black .hr {
 	background: url('../img/divide-b.png') 50% no-repeat;
 }
+/* backgrounds */
+/* top */
+div#topbg {
+	position: absolute;
+	top: 0;
+	background: url('../img/earth.png') 50% 0 no-repeat;
+	background-size: cover;
+	width: 100%;
+	z-index: -2;
+}
+div#topbg2 {
+	position: absolute;
+	top: 0;
+	background: url('../img/earth-over.png') 50% 328px no-repeat;
+	background-size: cover;
+	width: 100%;
+	z-index: -1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+	opacity: 1;
+}
+div#bottombg {
+	position: absolute;
+	bottom: 0;
+	background: white url('../img/space.png') 50% 100% no-repeat;
+	background-size: cover;
+	width: 100%;
+	min-height: 1500px;
+	z-index: -1;
+}
+div#bottombg2 {
+	position: absolute;
+	bottom: 0;
+	min-height: 3000px;
+	width: 100%;
+	z-index: -2;
+	background: white;
+}
 /* home */
 section#home {
 	width: 100%;
 	min-height: 650px;
-	background: url('../img/earth.png') 50% 0 no-repeat;
-	background-size: cover;
 }
 section#home .welcome {
 	position: relative;
@@ -1057,8 +1116,10 @@ section#watches {
 	background-size: cover;
 	position: relative;
 }
-section#watches .recent {
+section#watches .orderby {
 	margin-top: 50px;
+	position: relative;
+	right: 17px;
 }
 section#watches h3 {
 	margin-bottom: 30px;
@@ -1200,17 +1261,17 @@ section#watches div.sw .contactbox {
 	height: 235px;
 	background: url('../img/contact_bg.png') 50% no-repeat;
 	padding: 10px;
-	padding-top: 20px;
+	padding-top: 30px;
 }
 section#watches div.sw .contactbox p {
-	font-size: 0.8em;
+	font-size: 12px;
 }
 section#watches .input-group .input-group-addon {
 	border: solid 1px;
 	background: #226494;
 	color: white;
 	border-left: none;
-	height: 29px;
+	height: 30px;
 }
 section#watches div.sw .contactbox .inputs {
 	padding: 0 10px;
@@ -1227,6 +1288,7 @@ section#watches div.sw .contactbox textarea {
 	padding: 6px;
 	border-color: white;
 	margin-bottom: 8px;
+	margin-top: 8px;
 }
 section#watches div.sw .contactbox input, section#watches div.sw .contactbox button {
 	font-weight: 300;
@@ -1416,7 +1478,10 @@ section#sell form#watch-submit #sell-info {
 section#brands {
 	width: 100%;
 	min-height: 350px;
-	background: white;
+	background: url('../img/frame2.png') 50% 50% repeat-y;
+}
+section#brands .single.lnk {
+	cursor: pointer;
 }
 section#brands .single {
 	width: 14.28%;
@@ -1439,9 +1504,9 @@ section#contact {
 	width: 100%;
 	min-height: 760px;
 /*	background: url('../img/space.png') 50% 0 no-repeat;
-	background-size: cover;
-*/background: white url('../img/space.png') 50% 100% no-repeat;
-	background-size: 100%;}
+	background-size: cover;*/
+	/*background: white;*/
+}
 section#contact .container {
 	position: relative;
 	z-index: 12;
@@ -1449,9 +1514,10 @@ section#contact .container {
 section#contact .planets {
 	position: absolute;
 	bottom: 0;
+	left:100px;
 	width: 100%;
 	height: 100%;
-	background: url('../img/planets.png') 80% 100% no-repeat;
+	background: url('../img/planets.png') 50% 100% no-repeat;
 }
 section#contact .frame {
 	position: absolute;
@@ -1488,6 +1554,7 @@ section#contact .input-group .input-group-addon {
 	background: #226494;
 	color: white;
 	border-left: none;
+	height: 29px;
 }
 section#contact .faceinsta {
 	display: inline-block;

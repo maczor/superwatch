@@ -9,6 +9,7 @@ class WatchesController extends BaseController {
 	 */
 	public function index()
 	{
+		// all
 		$watches = Watch::with(array('images' => function($query)
 		{
 		    $query->where('order', '=', '1');
@@ -27,6 +28,143 @@ class WatchesController extends BaseController {
 		);
 		// dd($watches->first());
 		return View::make('watches.index', $data);
+	}
+
+	/**
+	 * Search in Watches View for Admin
+	 *
+	 * @return View
+	 */
+	public function searchFullAdmin()
+	{
+		$input = Input::get('searchall');
+		$searchinput = '1200';
+		// sanitize searchinput
+		$searchstrings = explode(' ',$searchinput);
+		$searchfields = array('brandname','modelname', 'reference', 'statusname', 'sellingprice', 'buyingprice');
+		foreach ($searchfields as $key => $columnname) {
+			foreach ($searchstrings as $key => $searchstring) {
+				$queries[] = 'SELECT id, modelname, brandname, reference, statusname, sellingprice, buyingprice FROM `watchesjoined` WHERE '.$columnname.' LIKE "%'.$searchstring.'%"';
+			}
+		}
+
+		$query = implode(' UNION ', $queries);
+		$foundwatches = DB::select(DB::raw($query));
+		return $foundwatches;
+	}
+
+	/**
+	 * Search in Watches View for User
+	 *
+	 * @return View
+	 */
+	public function searchFull()
+	{
+		$searchinput = Input::get('searchall');
+		$order = Input::get('orderby');
+		$searchinput = 'oak';
+		$order = 'sellingprice';
+		$direction = 'DESC';
+		// sanitize searchinput
+		$searchstrings = explode(' ',$searchinput);
+		$searchfields = array('brandname','modelname','reference');
+		foreach ($searchfields as $key => $columnname) {
+			foreach ($searchstrings as $key => $searchstring) {
+				$queries[] = 'SELECT id, modelname, brandname, reference, sellingprice FROM `watchesjoined` WHERE '.$columnname.' LIKE "%'.$searchstring.'%" AND `status_id` = "2"';
+			}
+		}
+
+		$query = implode(' UNION ', $queries);
+		if(isset($order)) $query = $query.' ORDER BY '.$order.' '.$direction;
+		$foundwatches = DB::select(DB::raw($query));
+		$watchesall = DB::select(DB::raw($query));
+		// Session::set('watchesall', $watchesall);
+		// Session::set('watches_url','/brand/'.$brand_id.'/'.$brandslist[$brand_id]);
+		// Session::set('page',$watches->getCurrentPage());
+		return $query;
+	}
+
+	/**
+	 * Show the watches
+	 *
+	 * @return Response
+	 */
+	public function getWatches() {
+		// kind = all / brand / model / search
+		$orderby_dir = (Input::get('orderby_dir')) ? Input::get('orderby_dir') : Session::get('orderby_dir');
+		$searchinput = (Input::get('fullsearch')) ? Input::get('fullsearch') : Session::get('fullsearch');
+		$brand_id = (Input::get('brand_id')) ? Input::get('brand_id') : Session::get('brand_id');
+		$model_id = (Input::get('model_id')) ? Input::get('model_id') : Session::get('model_id');		
+		$kind = (Input::get('kind')) ? Input::get('kind') : Session::get('kind');
+
+		// set order
+		$orderby = explode('-', $orderby_dir)[0];
+		$dir = explode('-', $orderby_dir)[1];
+
+		// set search
+		$searchinput = '1200';
+		$searchstrings = explode(' ',$searchinput);
+		$searchfields = array('brandname','modelname','reference');
+		
+		// get brands
+		$brands = Brand::with(array('watches' => function($query){
+			$query->where('status_id', '=', '2');
+		}))->orderBy('name')->get();
+
+		// main Query
+		$q = Watch::with(array('images' => function($query) {
+			$query->where('order', '=', '1');
+		}))
+		->where('status_id', '=', '2')
+		->join('models', 'models.id', '=', 'watches.model_id')
+		->join('brands', 'brands.id', '=', 'watches.brand_id')
+		->join('bands', 'bands.id', '=', 'watches.band_id')
+		->join('buckles', 'buckles.id', '=', 'watches.buckle_id')
+		->join('caseboxes', 'caseboxes.id', '=', 'watches.casebox_id')
+		->join('movements', 'movements.id', '=', 'watches.movement_id')
+		->join('papers', 'papers.id', '=', 'watches.paper_id')
+		->select(
+			'watches.*',
+			'models.name as modelname',
+			'brands.name as brandname',
+			'bands.name as bandname',
+			'buckles.name as bucklename',
+			'caseboxes.name as caseboxname',
+			'movements.name as movementname',
+			'papers.name as papername',
+			'watches.created_at');
+
+		// kind brand
+		if($kind=='brand') {
+			$q->where('brand_id', '=', $brand_id);
+		}
+		// kind model
+		if($kind=='model') {
+		}
+		// order
+		$q->orderBy($orderby,$dir);
+
+		// finalize $watches
+		$watches = $q->paginate(8);
+		$watchesall = $q->get();
+
+		// set data
+		$data = array(
+			'watches' => $watches,
+			'brands' => $brands
+		);
+
+		Session::set('brand_id', $brand_id);
+		Session::set('model_id', $model_id);
+		if(isset($fullsearch)) Session::set('fullsearch', $fullsearch);
+		Session::set('orderby_dir', $orderby_dir);
+		Session::set('kind', $kind);
+		Session::set('watchesall', $watchesall);
+		Session::set('orderby_dir', $orderby.'-'.$dir);
+		Session::set('page', $watches->getCurrentPage());
+
+		// return Request::url();
+		return View::make('watches.single', $data);
 	}
 
 	/**
@@ -248,14 +386,27 @@ class WatchesController extends BaseController {
 
 	public function watchesInBrand($brand_id)
 	{
+		// get order
+		$orderby = Input::get('orderby');
+		$dir = explode('-', $orderby);
+		$orderby = explode('-', $orderby);
 		// returns the watches list
-		$watches = Watch::with(array('images' => function($query)
+		$q = Watch::with(array('images' => function($query)
 		{
 		    $query->where('order', '=', '1');
 		}))
 		->where('status_id', '=', '2')
 		->where('brand_id', '=', $brand_id)
-		->orderBy('created_at')->paginate(8);
+		->join('models', 'models.id', '=', 'watches.model_id')
+		->join('brands', 'brands.id', '=', 'watches.brand_id')
+		->select(
+			'watches.*',
+			'brands.name as brandname',
+			'models.name as modelname',
+			'watches.created_at');
+
+		$q->orderBy('modelname');
+		$watches = $q->paginate(8);
 
 		$brands = Brand::with('watches')->orderBy('name')->get();
 		$modelslist = Model::orderBy('name')->lists('name','id');

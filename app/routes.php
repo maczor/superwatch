@@ -12,7 +12,8 @@
 */
 
 Route::group(array('prefix' => LaravelLocalization::setLanguage()), function() {
-	Route::get('/', array('as'=>'home', 'uses'=>'HomeController@index'));
+	// Route::get('/', array('as'=>'home', 'uses'=>'HomeController@index'));
+	Route::get('/', array('as'=>'home', 'uses'=>'HomeController@getWatches'));
 	Route::get('/back', array('as'=>'backhome', 'uses'=>'HomeController@backhome'));
 	Route::post('/sellmywatch', 'HomeController@sellmywatch');
 	Route::get('/brand/{brand_id}/{name}', 'WatchesController@watchesInBrand');
@@ -21,6 +22,9 @@ Route::group(array('prefix' => LaravelLocalization::setLanguage()), function() {
 	Route::post('/newsletter', 'NewsletterController@store');
 	Route::get('/newsletter/unsubscribe/{token}', 'NewsletterController@unsubscribe');
 	Route::get('/searchbrand/{str}', 'WatchesController@searchBrand');
+	Route::get('/getwatches', 'WatchesController@getWatches');
+	Route::get('/getwatches/{str}', 'WatchesController@getWatches');
+	Route::get('/getwatches/{str}/{name}', 'WatchesController@getWatches');
 	Route::get('/searchmodel/{str}', 'WatchesController@searchModel');
 	Route::get('/searchbrandmodel/{str}', 'WatchesController@searchBrandModel');
 	Route::get('/addtowishlist/{str}', 'WatchesController@addToWishlist');
@@ -92,6 +96,8 @@ Route::group(array('prefix' => LaravelLocalization::setLanguage()), function() {
 	});
 });
 
+Route::get('/fullsearch', 'WatchesController@searchFull');
+
 Route::get('/logos', 'HomeController@logos');
 
 Route::get('login', array('as' => 'login', function () {
@@ -123,7 +129,8 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('/jupload', function(){
 	    return View::make('jupload');
 	});
-
+	Route::get('/adminsearch', 'WatchesController@searchFullAdmin');
+	
 	Route::post('watches/payment/{id}', 'WatchesController@updatePayment');
 	Route::post('watches/status/{id}', 'WatchesController@updateStatus');
 	Route::get('watches', array('as'=>'watches', 'uses'=>'WatchesController@index'));

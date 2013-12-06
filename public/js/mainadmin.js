@@ -240,6 +240,7 @@ $(document).ready(function(){
 				} else {
 					$('#modelname').val('');
 					$('select[name="model_id"]').replaceWith(data);
+					// $('select[name="model_id"]').selectpicker();
 					$('#addModelModal').modal('hide');
 				}
 			});

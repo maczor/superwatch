@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('javascript')
 App.Options.section = 'watches';
+$.setWatchesList();
 @stop
 @section('pageclass')
 wishlist @stop
@@ -169,16 +170,18 @@ wishlist @stop
 		</div>
 	</div>
 </section>
+<div id="bottombg"></div>
+<div id="bottombg2"></div>
 @stop
 @section('modals')
 <div id="contactModal" class="modal fade" data-keyboard="true" role="dialog" aria-hidden="true" tabindex="-1">
 	<div class="modal-dialog">
-		<div class="contact-top">
+		<div class="modal-top">
 			<div class="cleft"></div>
 			<div class="cmid"></div>
 			<div class="cright"></div>
 		</div>
-		<div class="contact-main">
+		<div class="modal-main">
 			<div class="wrapper">
 				<h4>{{ Lang::get('home.CONTACT ME ABOUT THIS WATCH') }}</h4>
 				<div class="hrsm"></div>

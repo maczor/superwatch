@@ -2,6 +2,87 @@
 
 class HomeController extends BaseController {
 
+		/**
+	 * Show the watches
+	 *
+	 * @return Response
+	 */
+	public function getWatches() {
+		// set vars
+		$brand_id = (Session::get("brand_id")) ? Session::get("brand_id") : false;
+		$model_id = (Session::get("model_id")) ? Session::get("model_id") : false;
+		$orderby_dir = (Session::get('orderby_dir')) ? Session::get('orderby_dir') : 'created_at-desc';
+		$kind = (Session::get('kind'))? Session::get('kind') : 'all';
+
+		// set main defaults
+		// set kind
+		Session::set('kind', $kind); // all / brand / model / search
+		// set order
+		Session::set('orderby_dir', $orderby_dir);
+		$orderby = explode('-', $orderby_dir)[0];
+		$dir = explode('-', $orderby_dir)[1];
+
+		// set search
+		$searchinput = '1200';
+		$searchstrings = explode(' ',$searchinput);
+		$searchfields = array('brandname','modelname','reference');
+		
+		// get brands
+		$brands = Brand::with(array('watches' => function($query){
+			$query->where('status_id', '=', '2');
+		}))->orderBy('name')->get();
+
+		// main Query
+		$q = Watch::with(array('images' => function($query) {
+			$query->where('order', '=', '1');
+		}))
+		->where('status_id', '=', '2')
+		->join('models', 'models.id', '=', 'watches.model_id')
+		->join('brands', 'brands.id', '=', 'watches.brand_id')
+		->join('bands', 'bands.id', '=', 'watches.band_id')
+		->join('buckles', 'buckles.id', '=', 'watches.buckle_id')
+		->join('caseboxes', 'caseboxes.id', '=', 'watches.casebox_id')
+		->join('movements', 'movements.id', '=', 'watches.movement_id')
+		->join('papers', 'papers.id', '=', 'watches.paper_id')
+		->select(
+			'watches.*',
+			'models.name as modelname',
+			'brands.name as brandname',
+			'bands.name as bandname',
+			'buckles.name as bucklename',
+			'caseboxes.name as caseboxname',
+			'movements.name as movementname',
+			'papers.name as papername',
+			'watches.created_at');
+
+		// kind brand
+		if($brand_id) {
+			if($brand_id!='all') $q->where('brand_id', '=', $brand_id);
+		}
+		// kind model
+		if($model_id) {
+			$q->where('brand_id', '=', $brand_id);
+		}
+
+		// order
+		$q->orderBy($orderby,$dir);
+
+		// finalize $watches
+		$watches = $q->paginate(8);
+		$watchesall = $q->get();
+
+		// set data
+		$data = array(
+			'watches' => $watches,
+			'brands' => $brands
+		);
+
+		Session::set('watchesall', $watchesall);
+
+		// return Request::url();
+		return View::make('home', $data);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *

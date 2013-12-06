@@ -33,7 +33,7 @@ return array(
 'CONTACT' => 'CONTACT',
 'Dear collectors' => '<p>Dear collectors and amateurs,</p><p>I created this site to live from my passion for modern and collection watches.</p>Already very young I was immersed in the watch world as my grandfather and my older brother were collecting them. I spent 4 years in a watch making school in Belgium where I received my diploma. During my studies, I went twice a year to switzerland in big watch factories to visit the manufacturing of a watch chain and learn all the specificities of movements from each brand. I then continued my training by the maintenance and repair of watches among watchmakers. Furthermore, I completed an internship in a renowned public sale in Paris and spent four years in a store, in the sale and purchase of secondhand watches. These courses helped me to understand a watch, not only for its aesthetic qualities but also, to require honorable provenance and be very strict about the proper functioning of its mechanism, at the market price. These eight years of experience allow me today to offer you irreproachable, <p>qualitative & trustful products with a professional guarantee.</p><p>Hoping the most cordial relations with you.</p><p>Your devoted Superwatch, Adrien Finkelstein</p>',
 'Desired price' => 'Desired price',
-'Didn’t find the model you were looking for ? Ask me !' => 'Didn’t find the model you were looking for ? Ask&nbsp;me !',
+'Didn’t find the model you were looking for ? Ask me !' => 'Didn’t find the model you were looking for?<br>Ask&nbsp;me !',
 'Email' => 'Email',
 'GUARANTEE' => 'GUARANTEE',
 'Help me find your watch' => 'Help me find your watch',

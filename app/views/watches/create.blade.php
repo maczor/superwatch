@@ -34,18 +34,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				{{ Form::label('status' ,'<!--:en-->STATUS<!--:fr-->STATUT', ['id'=>'status_label', 'class'=>'langspl col-md-4 control-label']) }}
-				<div class="col-md-6">
-					{{ Form::select('status_id', $status, '', ['id'=>'status_id', 'data-style'=>'btn-1', 'data-width'=>'100%', 'class'=>'sel_status_edit']) }}
-				</div>
-			</div>
-			<div class="form-group">
-				{{ Form::label('payment' ,'<!--:en-->PAYMENT<!--:fr-->PAIEMENT', ['id'=>'payment_label', 'class'=>'langspl col-md-4 control-label']) }}
-				<div class="col-md-6">
-					{{ Form::select('payment_id', $payment, '', ['id'=>'payment_id', 'class'=>'selectpicker', 'data-width'=>'100%']) }}
-				</div>
-			</div>
-			<div class="form-group">
 				{{ Form::label('year', '<!--:en-->Year<!--:fr-->ANNÉE', ['id'=>'year_label', 'class'=>'langspl col-md-4 control-label']) }}
 				<div class="col-md-6">
 					{{ Form::text('year', '', ['class'=>'form-control']) }}
@@ -142,8 +130,33 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-offset-1 col-md-5">
-		<p>To add images you need to save the Watch first!</p>
+	<div class="col-md-6">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-md-offset-3 col-md-6">
+					<button type="submit" class="btn btn-primary btn-lg">Save <b class="glyphicon white glyphicon-hdd"></b></button>
+				</div>
+			</div>
+			<div class="form-group">
+				{{ Form::label('status' ,'<!--:en-->STATUS<!--:fr-->STATUT', ['id'=>'status_label', 'class'=>'langspl col-md-3 control-label']) }}
+				<div class="col-md-6">
+					{{ Form::select('status_id', $status, '', ['id'=>'status_id', 'data-style'=>'btn-1', 'data-width'=>'100%', 'class'=>'sel_status_edit']) }}
+				</div>
+			</div>
+			<div class="form-group">
+				{{ Form::label('payment' ,'<!--:en-->PAYMENT<!--:fr-->PAIEMENT', ['id'=>'payment_label', 'class'=>'langspl col-md-3 control-label']) }}
+				<div class="col-md-6">
+					{{ Form::select('payment_id', $payment, '', ['id'=>'payment_id', 'class'=>'selectpicker', 'data-width'=>'100%']) }}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-md-offset-3 col-md-6">
+				<p>To add images you need to save the Watch first!</p>
+			</div>
+			</div>
+		</div>
 	</div>
 	{{ Form::close() }}
 </div>
